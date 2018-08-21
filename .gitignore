@@ -35,3 +35,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Assets/Images/Tilemap/
+Assets/Standard Assets/CrossPlatformInput/
+Assets/Standard Assets/
