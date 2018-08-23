@@ -71,12 +71,18 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void JumpInput()
 	{
-		print(jumpTime + " " + canJump);
 		if (canJump == true)
 		{
 			jumpInput = CrossPlatformInputManager.GetAxis("Jump");
 		}
+
 		float jumpHeightTimesInput = jumpHeight * jumpInput * Time.deltaTime;
+
+		DoJump(jumpHeightTimesInput);
+	}
+
+	private void DoJump(float jumpHeightTimesInput)
+	{
 		if (jumpInput == 1f)
 		{
 			characterRigidbody.AddRelativeForce(Vector2.up * jumpHeightTimesInput);
