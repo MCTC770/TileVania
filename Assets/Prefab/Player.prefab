@@ -58,7 +58,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -108,9 +108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d873a9d6a546d2045a0c0c76a9bec8e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 500
-  jumpHeight: 1000
-  maxJumpTime: 0.42
+  movementSpeed: 1200
+  jumpHeight: 5000
+  maxJumpTime: 0.12
   characterAnimator: {fileID: 95887106736233390}
 --- !u!212 &212818902600662366
 SpriteRenderer:

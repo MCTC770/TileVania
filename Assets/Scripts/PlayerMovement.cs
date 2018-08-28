@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float jumpHeight = 2000f;
 	[SerializeField] float maxJumpTime = 0.3f;
 	[SerializeField] Animator characterAnimator;
+	[SerializeField] CapsuleCollider2D playerCollider;
+	[SerializeField] CapsuleCollider2D playerFeetCollider;
 
 	float horizontalMovementInput;
 	float jumpInput = 0;
@@ -22,6 +24,8 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		characterRigidbody = GetComponent<Rigidbody2D>();
 		characterAnimator.SetBool("Running", false);
+		//playerCollider = GetComponent<CapsuleCollider2D>();
+		//playerFeetCollider = GetComponent<BoxCollider2D>();
 	}
 	
 	// Update is called once per frame
@@ -97,7 +101,11 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		jumpTime = 0;
-		canJump = true;
+		ContactPoint2D newContact = collision.contacts[0];
+		if (newContact.otherCollider == playerFeetCollider)
+		{
+			jumpTime = 0;
+			canJump = true;
+		}
 	}
 }

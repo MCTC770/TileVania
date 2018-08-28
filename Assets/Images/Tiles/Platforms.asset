@@ -77,6 +77,24 @@ MonoBehaviour:
     m_Output: 0
     m_ColliderType: 1
     m_RandomTransform: 0
+  - m_Neighbors: 0000000002000000000000000100000001000000020000000100000000000000
+    m_Sprites:
+    - {fileID: 21300026, guid: 0c146763c815f6c4faed71484e165d15, type: 3}
+    m_AnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_RuleTransform: 1
+    m_Output: 0
+    m_ColliderType: 1
+    m_RandomTransform: 0
+  - m_Neighbors: 0000000002000000000000000100000001000000000000000100000002000000
+    m_Sprites:
+    - {fileID: 21300026, guid: 0c146763c815f6c4faed71484e165d15, type: 3}
+    m_AnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_RuleTransform: 1
+    m_Output: 0
+    m_ColliderType: 1
+    m_RandomTransform: 0
   - m_Neighbors: 0000000001000000000000000200000001000000000000000100000000000000
     m_Sprites:
     - {fileID: 21300010, guid: 0c146763c815f6c4faed71484e165d15, type: 3}
