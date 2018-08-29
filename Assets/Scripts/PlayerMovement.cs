@@ -111,18 +111,12 @@ public class PlayerMovement : MonoBehaviour {
 			float movementSpeedTimesInput = climbSpeed * verticalMovementInput * Time.deltaTime;
 			characterRigidbody.velocity = Vector2.up * movementSpeedTimesInput;
 			characterRigidbody.gravityScale = 0;
-			/*if (grounded == false)
-			{
-				characterRigidbody.gravityScale = 0;
-			}
-			else
-			{
-				characterRigidbody.gravityScale = setGravityScale;
-			}*/
+			movementSpeed = 7000f;
 		}
 		else
 		{
 			characterRigidbody.gravityScale = setGravityScale;
+			movementSpeed = 1200f;
 		}
 	}
 
