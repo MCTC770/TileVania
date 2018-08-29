@@ -15,7 +15,7 @@ TagManager:
   - 
   - PostProcessing
   - Foreground
-  - 
+  - Ladders
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 159995159
+    locked: 0
+  - name: Ladder
+    uniqueID: 502112429
     locked: 0
   - name: Player
     uniqueID: 823279997

@@ -2,30 +2,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerMovement : MonoBehaviour {
 
-	[SerializeField] float movementSpeed = 500f;
-	[SerializeField] float jumpHeight = 2000f;
-	[SerializeField] float maxJumpTime = 0.3f;
+	[SerializeField] float movementSpeed = 1200f;
+	[SerializeField] float climbSpeed = 500f;
+	[SerializeField] float jumpHeight = 5000f;
+	[SerializeField] float maxJumpTime = 0.135f;
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
 	[SerializeField] CapsuleCollider2D playerFeetCollider;
 
-	float horizontalMovementInput;
 	float jumpInput = 0;
 	float jumpTime = 0;
+	float setGravityScale;
+	bool grounded = false;
 	bool isJumping = false;
 	bool canJump = true;
+	bool climbAvailable = false;
 	Rigidbody2D characterRigidbody;
 
 	// Use this for initialization
 	void Start () {
 		characterRigidbody = GetComponent<Rigidbody2D>();
 		characterAnimator.SetBool("Running", false);
-		//playerCollider = GetComponent<CapsuleCollider2D>();
-		//playerFeetCollider = GetComponent<BoxCollider2D>();
+		setGravityScale = characterRigidbody.gravityScale;
 	}
 	
 	// Update is called once per frame
@@ -37,19 +40,20 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		HorizontalMovementInput();
 		JumpInput();
+		ClimbLadder();
 	}
 
 	private void HorizontalMovementInput()
 	{
-		horizontalMovementInput = CrossPlatformInputManager.GetAxis("Horizontal");
+		float horizontalMovementInput = CrossPlatformInputManager.GetAxis("Horizontal");
 		float movementSpeedTimesInput = movementSpeed * horizontalMovementInput * Time.deltaTime;
 		characterRigidbody.AddRelativeForce(Vector2.right * movementSpeedTimesInput);
 
-		CharacterRunAnimation();
-		CharacterTurningWhenWalking();
+		CharacterRunAnimation(horizontalMovementInput);
+		CharacterTurningWhenWalking(horizontalMovementInput);
 	}
 
-	private void CharacterRunAnimation()
+	private void CharacterRunAnimation(float horizontalMovementInput)
 	{
 		if (horizontalMovementInput != 0)
 		{
@@ -61,7 +65,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-	private void CharacterTurningWhenWalking()
+	private void CharacterTurningWhenWalking(float horizontalMovementInput)
 	{
 		if (horizontalMovementInput > 0)
 		{
@@ -99,6 +103,29 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	private void ClimbLadder()
+	{
+		if (climbAvailable)
+		{
+			float verticalMovementInput = CrossPlatformInputManager.GetAxis("Vertical");
+			float movementSpeedTimesInput = climbSpeed * verticalMovementInput * Time.deltaTime;
+			characterRigidbody.velocity = Vector2.up * movementSpeedTimesInput;
+			characterRigidbody.gravityScale = 0;
+			/*if (grounded == false)
+			{
+				characterRigidbody.gravityScale = 0;
+			}
+			else
+			{
+				characterRigidbody.gravityScale = setGravityScale;
+			}*/
+		}
+		else
+		{
+			characterRigidbody.gravityScale = setGravityScale;
+		}
+	}
+
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		ContactPoint2D newContact = collision.contacts[0];
@@ -106,6 +133,28 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			jumpTime = 0;
 			canJump = true;
+			grounded = true;
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D collision)
+	{
+		grounded = false;
+	}
+
+	private void OnTriggerEnter2D(Collider2D collider)
+	{
+		if (collider.gameObject.name == "Ladders")
+		{
+			climbAvailable = true;
+		}
+	}
+
+	private void OnTriggerExit2D(Collider2D collider)
+	{
+		if (collider.gameObject.name == "Ladders")
+		{
+			climbAvailable = false;
 		}
 	}
 }
