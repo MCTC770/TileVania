@@ -232,7 +232,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 40
+  m_GravityScale: 55
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -312,7 +312,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 421657265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.43, y: -0.5, z: 0}
+  m_LocalPosition: {x: 5.78, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -480,8 +480,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 1000
   climbSpeed: 100
-  jumpHeight: 2000
-  maxJumpTime: 0.135
+  jumpHeight: 50000
+  maxJumpTime: 0.4
+  fallMultiplier: 1
   characterAnimator: {fileID: 421657268}
   playerCollider: {fileID: 421657266}
   playerFeetCollider: {fileID: 421657271}

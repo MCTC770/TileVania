@@ -113,10 +113,12 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			DoClimb(verticalMovementInput);
 			CharacterClimbAnimation(verticalMovementInput);
+
 		}
 		else
 		{
 			characterRigidbody.gravityScale = setGravityScale;
+			characterAnimator.SetBool("Climbing", false);
 		}
 	}
 
@@ -132,10 +134,6 @@ public class PlayerMovement : MonoBehaviour {
 		if (verticalMovementInput != 0)
 		{
 			characterAnimator.SetBool("Climbing", true);
-		}
-		else
-		{
-			characterAnimator.SetBool("Climbing", false);
 		}
 	}
 
