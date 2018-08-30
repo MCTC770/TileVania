@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour {
 	float jumpInput = 0;
 	float jumpTime = 0;
 	float setGravityScale;
+	float movementFixSpeed;
 	bool grounded = false;
 	bool isJumping = false;
 	bool canJump = true;
@@ -29,6 +30,7 @@ public class PlayerMovement : MonoBehaviour {
 		characterRigidbody = GetComponent<Rigidbody2D>();
 		characterAnimator.SetBool("Running", false);
 		setGravityScale = characterRigidbody.gravityScale;
+		movementFixSpeed = movementSpeed;
 	}
 	
 	// Update is called once per frame
@@ -47,7 +49,7 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		float horizontalMovementInput = CrossPlatformInputManager.GetAxis("Horizontal");
 		float movementSpeedTimesInput = movementSpeed * horizontalMovementInput * Time.deltaTime;
-		characterRigidbody.AddRelativeForce(Vector2.right * movementSpeedTimesInput);
+		characterRigidbody.velocity = Vector2.right * movementSpeedTimesInput;
 
 		CharacterRunAnimation(horizontalMovementInput);
 		CharacterTurningWhenWalking(horizontalMovementInput);
@@ -115,7 +117,6 @@ public class PlayerMovement : MonoBehaviour {
 		else
 		{
 			characterRigidbody.gravityScale = setGravityScale;
-			movementSpeed = 1200f;
 		}
 	}
 
@@ -124,7 +125,6 @@ public class PlayerMovement : MonoBehaviour {
 		float movementSpeedTimesInput = climbSpeed * verticalMovementInput * Time.deltaTime;
 		characterRigidbody.velocity = Vector2.up * movementSpeedTimesInput;
 		characterRigidbody.gravityScale = 0;
-		movementSpeed = 7000f;
 	}
 
 	private void CharacterClimbAnimation(float verticalMovementInput)
