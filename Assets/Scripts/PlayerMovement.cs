@@ -105,18 +105,37 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void ClimbLadder()
 	{
+		float verticalMovementInput = CrossPlatformInputManager.GetAxis("Vertical");
+
 		if (climbAvailable)
 		{
-			float verticalMovementInput = CrossPlatformInputManager.GetAxis("Vertical");
-			float movementSpeedTimesInput = climbSpeed * verticalMovementInput * Time.deltaTime;
-			characterRigidbody.velocity = Vector2.up * movementSpeedTimesInput;
-			characterRigidbody.gravityScale = 0;
-			movementSpeed = 7000f;
+			DoClimb(verticalMovementInput);
+			CharacterClimbAnimation(verticalMovementInput);
 		}
 		else
 		{
 			characterRigidbody.gravityScale = setGravityScale;
 			movementSpeed = 1200f;
+		}
+	}
+
+	private void DoClimb(float verticalMovementInput)
+	{
+		float movementSpeedTimesInput = climbSpeed * verticalMovementInput * Time.deltaTime;
+		characterRigidbody.velocity = Vector2.up * movementSpeedTimesInput;
+		characterRigidbody.gravityScale = 0;
+		movementSpeed = 7000f;
+	}
+
+	private void CharacterClimbAnimation(float verticalMovementInput)
+	{
+		if (verticalMovementInput != 0)
+		{
+			characterAnimator.SetBool("Climbing", true);
+		}
+		else
+		{
+			characterAnimator.SetBool("Climbing", false);
 		}
 	}
 
