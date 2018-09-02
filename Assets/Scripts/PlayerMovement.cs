@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float climbSpeed = 500f;
 	[SerializeField] float jumpHeight = 5000f;
 	[SerializeField] float maxJumpTime = 0.135f;
+	[SerializeField] float fallGravity = 100f;
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
 	[SerializeField] CapsuleCollider2D playerFeetCollider;
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour {
 	bool isJumping = false;
 	bool canJump = true;
 	bool climbAvailable = false;
+	bool jumpFall = false;
 	Rigidbody2D characterRigidbody;
 
 	// Use this for initialization
@@ -93,6 +95,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void DoJump(float jumpHeightTimesInput)
 	{
+		Vector2 jumpOver = new Vector2(transform.position.x, 0);
 		if (jumpInput == 1f)
 		{
 			characterRigidbody.AddRelativeForce(Vector2.up * jumpHeightTimesInput);
@@ -101,6 +104,16 @@ public class PlayerMovement : MonoBehaviour {
 			{
 				canJump = false;
 				jumpInput = 0;
+			}
+			print(Input.GetKeyUp("space"));
+			if (grounded == false && (jumpTime >= maxJumpTime || (jumpInput == 1f && Input.GetKeyUp("space"))))
+			{
+				jumpFall = true;
+				characterRigidbody.gravityScale = fallGravity;
+			}
+			else
+			{
+				jumpFall = false;
 			}
 		}
 	}
@@ -117,7 +130,10 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		else
 		{
-			characterRigidbody.gravityScale = setGravityScale;
+			if (jumpFall == false)
+			{
+				characterRigidbody.gravityScale = setGravityScale;
+			}
 			characterAnimator.SetBool("Climbing", false);
 		}
 	}
