@@ -98,15 +98,21 @@ public class PlayerMovement : MonoBehaviour {
 		Vector2 jumpOver = new Vector2(transform.position.x, 0);
 		if (jumpInput == 1f)
 		{
-			characterRigidbody.AddRelativeForce(Vector2.up * jumpHeightTimesInput);
+			//characterRigidbody.AddRelativeForce(Vector2.up * jumpHeightTimesInput);
+			characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, 1f * jumpHeightTimesInput);
 			jumpTime += Time.deltaTime;
 			if (jumpTime >= maxJumpTime)
 			{
 				canJump = false;
 				jumpInput = 0;
 			}
-			print(Input.GetKeyUp("space"));
-			if (grounded == false && (jumpTime >= maxJumpTime || (jumpInput == 1f && Input.GetKeyUp("space"))))
+			print(Vector2.up);
+			if (grounded && characterRigidbody.velocity.y == 0)
+			{
+
+			}
+
+			/*if (grounded == false && (jumpTime >= maxJumpTime || (jumpInput == 1f && Input.GetKeyUp("space"))))
 			{
 				jumpFall = true;
 				characterRigidbody.gravityScale = fallGravity;
@@ -114,7 +120,7 @@ public class PlayerMovement : MonoBehaviour {
 			else
 			{
 				jumpFall = false;
-			}
+			}*/
 		}
 	}
 
