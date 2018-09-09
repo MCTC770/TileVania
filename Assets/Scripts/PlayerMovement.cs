@@ -7,12 +7,18 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerMovement : MonoBehaviour {
 
+	//todo: prevent jumping while falling (not a fall after a jump) -> Done!
+	//todo: you can't jump, if you glide to ground from wall
+	//todo: double jump currently doesn't work, when you reached maxJumpTime -> Done!
+	//todo: tweak fallGravity for multi jumping
+
 	[SerializeField] float movementSpeed = 1200f;
 	[SerializeField] float climbSpeed = 500f;
 	[SerializeField] float jumpHeight = 5000f;
 	[SerializeField] float maxJumpTime = 0.135f;
 	[SerializeField] float fallGravity = 100f;
 	[SerializeField] float ladderWalkSlowdown = 4f;
+	[SerializeField] int maxJumps = 2;
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
 	[SerializeField] CapsuleCollider2D playerFeetCollider;
@@ -25,7 +31,10 @@ public class PlayerMovement : MonoBehaviour {
 	bool jumpNotStarted = true;
 	bool grounded = false;
 	bool canJump = true;
+	bool currentJump = false;
 	bool climbAvailable = false;
+	bool noJumpWhenFalling = true;
+	int jumpCounter = 0;
 	Rigidbody2D characterRigidbody;
 
 	// Use this for initialization
@@ -87,17 +96,30 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		if (jumpInput == 0 && !grounded)
 		{
-			canJump = false;
+			if (jumpCounter >= maxJumps)
+			{
+				canJump = false;
+			}
 			characterRigidbody.gravityScale = fallGravity;
 		}
 		else
 		{
 			characterRigidbody.gravityScale = setGravityScale;
+			jumpCounter = 0;
 		}
 
 		jumpEnd = CrossPlatformInputManager.GetButtonUp("Jump");
 
-		if ((canJump && grounded && jumpNotStarted) || (canJump && !grounded))
+		if (jumpCounter < maxJumps && !canJump)
+		{
+			if (jumpEnd)
+			{
+				canJump = true;
+			}
+		}
+
+		if (noJumpWhenFalling && !grounded) { }
+		else if ((canJump && grounded && jumpNotStarted) || (canJump && !grounded))
 		{
 			jumpInput = CrossPlatformInputManager.GetAxis("Jump");
 		}
@@ -125,7 +147,7 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		Vector2 jumpOver = new Vector2(transform.position.x, 0);
 
-		if (jumpInput == 1f)
+		if (jumpInput == 1f && jumpCounter < maxJumps)
 		{
 			characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, 1f * jumpHeightTimesInput);
 			jumpTime += Time.deltaTime;
@@ -134,6 +156,19 @@ public class PlayerMovement : MonoBehaviour {
 				canJump = false;
 				jumpInput = 0;
 			}
+			currentJump = true;
+			noJumpWhenFalling = false;
+		}
+		else if (jumpInput == 0f && currentJump == true)
+		{
+			jumpCounter += 1;
+			jumpTime = 0f;
+			currentJump = false;
+		}
+		else if (grounded)
+		{
+			jumpCounter = 0;
+			noJumpWhenFalling = true;
 		}
 	}
 

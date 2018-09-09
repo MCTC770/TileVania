@@ -130,6 +130,7 @@ MonoBehaviour:
   maxJumpTime: 0.4
   fallGravity: 80
   ladderWalkSlowdown: 4
+  maxJumps: 1
   characterAnimator: {fileID: 95308426458105034}
   playerCollider: {fileID: 70896447067235920}
   playerFeetCollider: {fileID: 70815302997214474}
