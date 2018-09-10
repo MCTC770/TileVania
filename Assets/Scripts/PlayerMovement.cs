@@ -105,7 +105,10 @@ public class PlayerMovement : MonoBehaviour {
 		else
 		{
 			characterRigidbody.gravityScale = setGravityScale;
-			jumpCounter = 0;
+			if (grounded)
+			{
+				jumpCounter = 0;
+			}
 		}
 
 		jumpEnd = CrossPlatformInputManager.GetButtonUp("Jump");
