@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour {
 
 	[SerializeField] float moveSpeed = 50f;
+	[SerializeField] BoxCollider2D wallColliderCheck;
+	[SerializeField] BoxCollider2D groundColliderCheck;
 
 	Rigidbody2D enemyRigidbody;
 	BoxCollider2D checkFallCollider;
@@ -36,11 +38,10 @@ public class EnemyMovement : MonoBehaviour {
 				transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
 			}
 		}
-		//print(collision);
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		print(other);
+
 	}
 }

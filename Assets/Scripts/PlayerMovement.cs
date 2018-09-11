@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		ControllerInputHandler();
+		print(grounded);
 	}
 
 	void ControllerInputHandler()
@@ -244,7 +245,10 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D collision)
 	{
-		grounded = false;
+		if (collision.otherCollider == playerFeetCollider)
+		{
+			grounded = false;
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collider)
