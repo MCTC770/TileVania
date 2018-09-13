@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1763779761074678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.12, y: 10.1, z: 0}
+  m_LocalPosition: {x: -8.439, y: -3.278, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -124,12 +124,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d873a9d6a546d2045a0c0c76a9bec8e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDeath: 0
   movementSpeed: 500
   climbSpeed: 100
   jumpHeight: 1150
   maxJumpTime: 0.4
   fallGravity: 65
   ladderWalkSlowdown: 4
+  deathAnimationUplift: 15
+  deathGravity: 250
+  invokeDeathFall: 0.4
   maxJumps: 1
   characterAnimator: {fileID: 95308426458105034}
   playerCollider: {fileID: 70896447067235920}
@@ -166,7 +170,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 823279997
+  m_SortingLayerID: 1638898691
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f10e515acab5dd94d8b67c621c190cde, type: 3}

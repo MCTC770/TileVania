@@ -12,12 +12,17 @@ public class PlayerMovement : MonoBehaviour {
 	//todo: double jump currently doesn't work, when you reached maxJumpTime -> Done!
 	//todo: tweak fallGravity for multi jumping
 
+	public bool playerDeath = false;
+
 	[SerializeField] float movementSpeed = 1200f;
 	[SerializeField] float climbSpeed = 500f;
 	[SerializeField] float jumpHeight = 5000f;
 	[SerializeField] float maxJumpTime = 0.135f;
 	[SerializeField] float fallGravity = 100f;
 	[SerializeField] float ladderWalkSlowdown = 4f;
+	[SerializeField] float deathAnimationUplift = 0.1f;
+	[SerializeField] float deathGravity = 5f;
+	[SerializeField] float invokeDeathFall = 0.5f;
 	[SerializeField] int maxJumps = 2;
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
@@ -47,7 +52,28 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		ControllerInputHandler();
+		if(playerDeath == false)
+		{
+			ControllerInputHandler();
+		}
+		else
+		{
+			playerCollider.enabled = false;
+			playerFeetCollider.enabled = false;
+			characterRigidbody.gravityScale = 1f;
+			characterRigidbody.velocity = Vector2.up * deathAnimationUplift;
+			Invoke("DeathFall", invokeDeathFall);
+
+			characterAnimator.SetBool("Climbing", false);
+			characterAnimator.SetBool("Running", false);
+			characterAnimator.SetBool("Dying", true);
+		}
+	}
+
+	private void DeathFall()
+	{
+		print("deathfall");
+		characterRigidbody.gravityScale = deathGravity;
 	}
 
 	void ControllerInputHandler()
@@ -239,6 +265,10 @@ public class PlayerMovement : MonoBehaviour {
 			jumpTime = 0;
 			canJump = true;
 			grounded = true;
+		}
+		if (newContact.collider.gameObject.name == "Enemy")
+		{
+			playerDeath = true;
 		}
 	}
 
