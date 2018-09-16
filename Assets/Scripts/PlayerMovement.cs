@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour {
 	//todo: tweak fallGravity for multi jumping
 
 	public bool playerDeath = false;
+	public LayerMask groundLayer;
 
 	[SerializeField] float movementSpeed = 1200f;
 	[SerializeField] float climbSpeed = 500f;
@@ -52,7 +53,9 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(playerDeath == false)
+		IsGrounded();
+
+		if (playerDeath == false)
 		{
 			ControllerInputHandler();
 		}
@@ -70,9 +73,25 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	bool IsGrounded()
+	{
+		Vector2 position = transform.position;
+		Vector2 direction = Vector2.down * 0.5f;
+		float distance = 1.0f;
+
+		Debug.DrawRay(position, direction, Color.green);
+
+		RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
+		if (hit.collider != null)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	private void DeathFall()
 	{
-		print("deathfall");
 		characterRigidbody.gravityScale = deathGravity;
 	}
 
@@ -266,7 +285,17 @@ public class PlayerMovement : MonoBehaviour {
 			canJump = true;
 			grounded = true;
 		}
-		if (newContact.collider.gameObject.name == "Enemy")
+
+		if (newContact.otherCollider == playerCollider && newContact.collider.gameObject.name == "Enemy")
+		{
+			playerDeath = true;
+		}
+		else if (newContact.otherCollider == playerFeetCollider && newContact.collider.gameObject.name == "Enemy")
+		{
+			Destroy(collision.gameObject);
+		}
+
+		if (newContact.collider.gameObject.name == "Hazards")
 		{
 			playerDeath = true;
 		}
