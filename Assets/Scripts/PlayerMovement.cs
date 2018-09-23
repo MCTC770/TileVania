@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float deathAnimationUplift = 0.1f;
 	[SerializeField] float deathGravity = 5f;
 	[SerializeField] float invokeDeathFall = 0.5f;
+	[SerializeField] float deathSequenceTime = 0.8f;
 	[SerializeField] int maxJumps = 2;
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
@@ -42,6 +43,7 @@ public class PlayerMovement : MonoBehaviour {
 	bool noJumpWhenFalling = true;
 	int jumpCounter = 0;
 	Rigidbody2D characterRigidbody;
+	GameSession gameSession;
 
 	// Use this for initialization
 	void Start () {
@@ -49,6 +51,7 @@ public class PlayerMovement : MonoBehaviour {
 		characterAnimator.SetBool("Running", false);
 		setGravityScale = characterRigidbody.gravityScale;
 		movementFixSpeed = movementSpeed;
+		gameSession = FindObjectOfType<GameSession>();
 	}
 	
 	// Update is called once per frame
@@ -70,7 +73,14 @@ public class PlayerMovement : MonoBehaviour {
 			characterAnimator.SetBool("Climbing", false);
 			characterAnimator.SetBool("Running", false);
 			characterAnimator.SetBool("Dying", true);
+			Invoke("LoseALive", deathSequenceTime);
 		}
+	}
+
+	private void LoseALive()
+	{
+		gameSession.playerLives -= 1;
+		gameSession.ProcessPlayerDeath();
 	}
 
 	bool IsGrounded()
