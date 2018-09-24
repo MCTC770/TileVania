@@ -21,7 +21,7 @@ TagManager:
   - Enemy
   - Hazard
   - Interactables
-  - 
+  - Pickups
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Ladder
     uniqueID: 502112429
+    locked: 0
+  - name: Pickups
+    uniqueID: 3931929961
     locked: 0
   - name: Interactables
     uniqueID: 1329468137
