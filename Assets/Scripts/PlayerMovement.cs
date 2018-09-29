@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
 	[SerializeField] CapsuleCollider2D playerFeetCollider;
+	[SerializeField] GameObject playerPickups;
+	[SerializeField] GameObject player2;
 
 	float jumpInput = 0;
 	float jumpTime = 0;
@@ -41,7 +43,9 @@ public class PlayerMovement : MonoBehaviour {
 	bool currentJump = false;
 	bool climbAvailable = false;
 	bool noJumpWhenFalling = true;
+	bool spawnedPlayerPickup = false;
 	int jumpCounter = 0;
+	int currentMaxJumps;
 	Rigidbody2D characterRigidbody;
 	GameSession gameSession;
 
@@ -52,6 +56,7 @@ public class PlayerMovement : MonoBehaviour {
 		setGravityScale = characterRigidbody.gravityScale;
 		movementFixSpeed = movementSpeed;
 		gameSession = FindObjectOfType<GameSession>();
+		currentMaxJumps = maxJumps;
 	}
 	
 	// Update is called once per frame
@@ -227,6 +232,23 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			jumpCounter = 0;
 			noJumpWhenFalling = true;
+			spawnedPlayerPickup = false;
+			maxJumps = currentMaxJumps;
+			if (maxJumps >= 2)
+			{
+				player2.SetActive(true);
+			}
+		}
+
+		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false)
+		{
+			Instantiate(playerPickups, new Vector2 (transform.position.x, transform.position.y - 1), Quaternion.identity);
+			currentMaxJumps -= 1;
+			if (currentMaxJumps == 1)
+			{
+				player2.SetActive(false);
+			}
+			spawnedPlayerPickup = true;
 		}
 	}
 
@@ -310,10 +332,11 @@ public class PlayerMovement : MonoBehaviour {
 			playerDeath = true;
 		}
 
-		if (newContact.collider.gameObject.name == "PlayerPickup")
+		if (newContact.collider.gameObject.name == "PlayerPickup" || newContact.collider.gameObject.name == "PlayerPickup(Clone)")
 		{
 			Destroy(newContact.collider.gameObject);
 			maxJumps += 1;
+			currentMaxJumps = maxJumps;
 		}
 	}
 
