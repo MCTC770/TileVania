@@ -26,11 +26,12 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float invokeDeathFall = 0.5f;
 	[SerializeField] float deathSequenceTime = 0.8f;
 	[SerializeField] int maxJumps = 1;
+	[SerializeField] int currentMaxJumps;
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
 	[SerializeField] CapsuleCollider2D playerFeetCollider;
 	[SerializeField] GameObject playerPickups;
-	[SerializeField] GameObject player2;
+	[SerializeField] List<GameObject> playerList = new List<GameObject>();
 
 	float jumpInput = 0;
 	float jumpTime = 0;
@@ -45,7 +46,6 @@ public class PlayerMovement : MonoBehaviour {
 	bool noJumpWhenFalling = true;
 	bool spawnedPlayerPickup = false;
 	int jumpCounter = 0;
-	int currentMaxJumps;
 	Rigidbody2D characterRigidbody;
 	GameSession gameSession;
 
@@ -232,11 +232,16 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			jumpCounter = 0;
 			noJumpWhenFalling = true;
-			spawnedPlayerPickup = false;
 			maxJumps = currentMaxJumps;
 			if (maxJumps >= 2)
 			{
-				player2.SetActive(true);
+				for(var i = 0; i <= maxJumps; i++)
+				{
+					if (playerList[i] == playerList[maxJumps - 2])
+					{
+						playerList[i].SetActive(true);
+					}
+				}
 			}
 		}
 
@@ -244,11 +249,20 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			Instantiate(playerPickups, new Vector2 (transform.position.x, transform.position.y - 1), Quaternion.identity);
 			currentMaxJumps -= 1;
-			if (currentMaxJumps == 1)
-			{
-				player2.SetActive(false);
-			}
 			spawnedPlayerPickup = true;
+
+			for (var i = playerList.Count; i >= currentMaxJumps; i--)
+			{
+				if (playerList[i-1] != playerList[currentMaxJumps-1])
+				{
+					playerList[i-2].SetActive(false);
+				}
+				else { }
+			}
+		}
+		else if (jumpInput == 0f && jumpCounter > 0 && spawnedPlayerPickup == true)
+		{
+			spawnedPlayerPickup = false;
 		}
 	}
 
@@ -312,10 +326,16 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		ContactPoint2D newContact = collision.contacts[0];
 
-		if ((newContact.collider.gameObject.name == "PlayerPickup" || newContact.collider.gameObject.name == "PlayerPickup(Clone)") && grounded)
+		if ((newContact.collider.gameObject.name == "PlayerPickup" || newContact.collider.gameObject.name == "PlayerPickup(Clone)") && grounded && maxJumps < 10)
 		{
 			Destroy(newContact.collider.gameObject);
 			maxJumps += 1;
+
+			/*if (maxJumps > 10)
+			{
+				maxJumps = 10;
+			}*/
+
 			currentMaxJumps = maxJumps;
 		}
 
