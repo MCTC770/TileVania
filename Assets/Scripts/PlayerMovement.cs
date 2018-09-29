@@ -311,6 +311,14 @@ public class PlayerMovement : MonoBehaviour {
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		ContactPoint2D newContact = collision.contacts[0];
+
+		if ((newContact.collider.gameObject.name == "PlayerPickup" || newContact.collider.gameObject.name == "PlayerPickup(Clone)") && grounded)
+		{
+			Destroy(newContact.collider.gameObject);
+			maxJumps += 1;
+			currentMaxJumps = maxJumps;
+		}
+
 		if (newContact.otherCollider == playerFeetCollider)
 		{
 			jumpTime = 0;
@@ -330,13 +338,6 @@ public class PlayerMovement : MonoBehaviour {
 		if (newContact.collider.gameObject.name == "Hazards")
 		{
 			playerDeath = true;
-		}
-
-		if (newContact.collider.gameObject.name == "PlayerPickup" || newContact.collider.gameObject.name == "PlayerPickup(Clone)")
-		{
-			Destroy(newContact.collider.gameObject);
-			maxJumps += 1;
-			currentMaxJumps = maxJumps;
 		}
 	}
 
