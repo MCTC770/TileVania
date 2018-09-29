@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float deathGravity = 5f;
 	[SerializeField] float invokeDeathFall = 0.5f;
 	[SerializeField] float deathSequenceTime = 0.8f;
-	[SerializeField] int maxJumps = 2;
+	[SerializeField] int maxJumps = 1;
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
 	[SerializeField] CapsuleCollider2D playerFeetCollider;
@@ -308,6 +308,12 @@ public class PlayerMovement : MonoBehaviour {
 		if (newContact.collider.gameObject.name == "Hazards")
 		{
 			playerDeath = true;
+		}
+
+		if (newContact.collider.gameObject.name == "PlayerPickup")
+		{
+			Destroy(newContact.collider.gameObject);
+			maxJumps += 1;
 		}
 	}
 
