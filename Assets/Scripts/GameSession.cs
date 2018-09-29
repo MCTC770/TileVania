@@ -57,6 +57,7 @@ public class GameSession : MonoBehaviour {
 		if (playerLives < 1)
 		{
 			SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+			Destroy(gameObject);
 		}
 		else
 		{
