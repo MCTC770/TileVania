@@ -5,6 +5,7 @@ using UnityEngine;
 public class CoinPickup : MonoBehaviour {
 
 	[SerializeField] Transform coinPickupSound;
+	[SerializeField] int coinScore = 100;
 	GameSession addScore;
 
 	private void Start()
@@ -19,7 +20,7 @@ public class CoinPickup : MonoBehaviour {
 			Transform coinSoundInstance = Instantiate(coinPickupSound, transform.position, Quaternion.identity);
 			coinSoundInstance.parent = transform.parent;
 
-			addScore.CalculateScore(100);
+			addScore.CalculateScore(coinScore);
 
 			Destroy(gameObject);
 		}
