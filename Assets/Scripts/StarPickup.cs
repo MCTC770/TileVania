@@ -17,7 +17,7 @@ public class StarPickup : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.name == "Player" && collision == playerColliders[0])
+		if (collision.gameObject.name == "Player" /*&& collision == playerColliders[0]*/)
 		{
 			addStars.TrackStarAmount();
 			Destroy(gameObject);

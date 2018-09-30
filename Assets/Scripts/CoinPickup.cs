@@ -20,7 +20,7 @@ public class CoinPickup : MonoBehaviour {
 	{
 		print("playerCollides");
 
-		if (collider.gameObject.name == "Player" && collider == playerColliders[0])
+		if (collider.gameObject.name == "Player" /*&& collider == playerColliders[0]*/)
 		{
 			Transform coinSoundInstance = Instantiate(coinPickupSound, transform.position, Quaternion.identity);
 			coinSoundInstance.parent = transform.parent;
