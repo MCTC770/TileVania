@@ -249,6 +249,12 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			Instantiate(playerPickups, new Vector2 (transform.position.x, transform.position.y - 1), Quaternion.identity);
 			currentMaxJumps -= 1;
+
+			if (currentMaxJumps < 1)
+			{
+				currentMaxJumps = 1;
+			}
+
 			spawnedPlayerPickup = true;
 
 			for (var i = playerList.Count; i >= currentMaxJumps; i--)
@@ -330,11 +336,6 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			Destroy(newContact.collider.gameObject);
 			maxJumps += 1;
-
-			/*if (maxJumps > 10)
-			{
-				maxJumps = 10;
-			}*/
 
 			currentMaxJumps = maxJumps;
 		}
