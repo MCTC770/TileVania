@@ -8,6 +8,11 @@ public class LevelExit : MonoBehaviour {
 	[SerializeField] float delayUntilNextSceneLoad = 1.0f;
 	[SerializeField] float LevelExitSloMoFactor = 0.2f;
 
+	private void Start()
+	{
+
+	}
+
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
 		StartCoroutine(LoadNextScene());

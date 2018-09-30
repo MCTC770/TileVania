@@ -5,22 +5,27 @@ using UnityEngine;
 public class CoinPickup : MonoBehaviour {
 
 	[SerializeField] Transform coinPickupSound;
-	[SerializeField] int coinScore = 100;
-	GameSession addScore;
+	GameObject player;
+	CapsuleCollider2D[] playerColliders;
+	GameSession addCoins;
 
 	private void Start()
 	{
-		addScore = FindObjectOfType<GameSession>();
+		player = GameObject.Find("Player");
+		playerColliders = player.GetComponents<CapsuleCollider2D>();
+		addCoins = FindObjectOfType<GameSession>();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
-		if (collider.gameObject.name == "Player")
+		print("playerCollides");
+
+		if (collider.gameObject.name == "Player" && collider == playerColliders[0])
 		{
 			Transform coinSoundInstance = Instantiate(coinPickupSound, transform.position, Quaternion.identity);
 			coinSoundInstance.parent = transform.parent;
 
-			addScore.CalculateScore(coinScore);
+			addCoins.TrackCoinAmount(1);
 
 			Destroy(gameObject);
 		}

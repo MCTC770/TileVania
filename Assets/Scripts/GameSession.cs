@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GameSession : MonoBehaviour {
 
 	public int playerLives = 3;
+	public int starsCollected = 0;
 
 	[SerializeField] Text livesText;
 	[SerializeField] Text scoreText;
@@ -27,7 +28,6 @@ public class GameSession : MonoBehaviour {
 	}
 
 	void Start () {
-
 	}
 
 	private void Update()
@@ -41,9 +41,14 @@ public class GameSession : MonoBehaviour {
 		scoreText.text = score.ToString();
 	}
 
-	public void CalculateScore(int pointsToAdd)
+	public void TrackCoinAmount(int coinsToAdd)
 	{
-		score += pointsToAdd;
+		score += coinsToAdd;
+	}
+
+	public void TrackStarAmount()
+	{
+		starsCollected += 1;
 	}
 
 	public void ProcessPlayerDeath()

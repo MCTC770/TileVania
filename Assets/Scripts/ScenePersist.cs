@@ -5,15 +5,45 @@ using UnityEngine.SceneManagement;
 
 public class ScenePersist : MonoBehaviour {
 
-	int startingScene;
+	static int sceneIndexofTheLastScene = 0;
+	private int sceneIndexAtStart;
 
 	private void Awake()
 	{
-		int numberOfScenePersists = FindObjectsOfType<ScenePersist>().Length;
+		int actualSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-		if (numberOfScenePersists > 1)
+		if (sceneIndexofTheLastScene == actualSceneIndex)
+		{
+			int numScenePersist = FindObjectsOfType<ScenePersist>().Length;
+			if (numScenePersist > 1)
+			{
+				Destroy(gameObject);
+				Debug.Log("ScenePersist has been destoyed due to Singleton");
+			}
+			else
+			{
+				DontDestroyOnLoad(gameObject);
+			}
+		}
+		else
+		{
+			StartCoroutine(Singleton());
+		}
+
+	}
+
+	IEnumerator Singleton()
+	{
+
+		float yieldDuration;
+
+		yield return new WaitForSecondsRealtime(Time.deltaTime);
+
+		int numScenePersist = FindObjectsOfType<ScenePersist>().Length;
+		if (numScenePersist > 1)
 		{
 			Destroy(gameObject);
+			Debug.Log("ScenePersist has been destoyed due to Singleton");
 		}
 		else
 		{
@@ -22,15 +52,29 @@ public class ScenePersist : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
-		startingScene = SceneManager.GetActiveScene().buildIndex;
+	void Start()
+	{
+		sceneIndexAtStart = SceneManager.GetActiveScene().buildIndex;
+		sceneIndexofTheLastScene = SceneManager.GetActiveScene().buildIndex;
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-		if (startingScene != SceneManager.GetActiveScene().buildIndex)
+	void Update()
+	{
+		CheckIfStillInSameScene();
+	}
+
+	private void CheckIfStillInSameScene()
+	{
+		int actualSceneIndex = SceneManager.GetActiveScene().buildIndex;
+		if (actualSceneIndex != sceneIndexAtStart)
 		{
 			Destroy(gameObject);
+			Debug.Log("ScenePersist has been destoyed due to SceneChange");
+		}
+		else
+		{
+			DontDestroyOnLoad(gameObject);
 		}
 	}
 }

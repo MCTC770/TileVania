@@ -332,7 +332,7 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		ContactPoint2D newContact = collision.contacts[0];
 
-		if ((newContact.collider.gameObject.name == "PlayerPickup" || newContact.collider.gameObject.name == "PlayerPickup(Clone)") && grounded && maxJumps < 10)
+		if ((newContact.collider.gameObject.name == "PlayerPickup" || newContact.collider.gameObject.name == "PlayerPickup(Clone)") && newContact.otherCollider == playerCollider && grounded && maxJumps < 10)
 		{
 			Destroy(newContact.collider.gameObject);
 			maxJumps += 1;
