@@ -156,7 +156,6 @@ GameObject:
   - component: {fileID: 95308426458105034}
   - component: {fileID: 50903143184838154}
   - component: {fileID: 70896447067235920}
-  - component: {fileID: 70815302997214474}
   - component: {fileID: 114314794279833322}
   m_Layer: 11
   m_Name: Player
@@ -229,7 +228,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1763779761074678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.2, y: -2.1, z: 0}
+  m_LocalPosition: {x: -20.75, y: -2.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4021676634546260}
@@ -545,21 +544,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.00999999, y: -0.04922247}
   m_Size: {x: 0.49, y: 0.84844494}
   m_Direction: 0
---- !u!70 &70815302997214474
-CapsuleCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1763779761074678}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.011131048, y: -0.2708552}
-  m_Size: {x: 0.42860627, y: 0.4434476}
-  m_Direction: 0
 --- !u!70 &70896447067235920
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -572,8 +556,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00999999, y: -0.026608527}
-  m_Size: {x: 0.49, y: 0.80321705}
+  m_Offset: {x: -0.00999999, y: -0.058674216}
+  m_Size: {x: 0.49, y: 0.86734843}
   m_Direction: 0
 --- !u!95 &95181866891446748
 Animator:
@@ -809,7 +793,7 @@ MonoBehaviour:
   playerDeath: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 188928
   movementSpeed: 350
   climbSpeed: 100
   jumpHeight: 1150
@@ -824,7 +808,6 @@ MonoBehaviour:
   currentMaxJumps: 0
   characterAnimator: {fileID: 95308426458105034}
   playerCollider: {fileID: 70896447067235920}
-  playerFeetCollider: {fileID: 70815302997214474}
   playerPickups: {fileID: 1497258086810926, guid: 174d881d80a791a4983fb55019932669,
     type: 2}
   playerList:

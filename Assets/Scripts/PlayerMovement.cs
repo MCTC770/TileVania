@@ -29,7 +29,6 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] int currentMaxJumps;
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
-	[SerializeField] CapsuleCollider2D playerFeetCollider;
 	[SerializeField] GameObject playerPickups;
 	[SerializeField] List<GameObject> playerList = new List<GameObject>();
 
@@ -45,6 +44,7 @@ public class PlayerMovement : MonoBehaviour {
 	bool climbAvailable = false;
 	bool noJumpWhenFalling = true;
 	bool spawnedPlayerPickup = false;
+	bool raycastCollide = false;
 	int jumpCounter = 0;
 	Rigidbody2D characterRigidbody;
 	GameSession gameSession;
@@ -60,9 +60,17 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		IsGrounded();
+	void Update ()
+	{
+		RaycastHitCheck();
+		print(grounded);
+		print(RaycastHitCheck());
 
+		CheckForPlayerDeath();
+	}
+
+	private void CheckForPlayerDeath()
+	{
 		if (playerDeath == false)
 		{
 			ControllerInputHandler();
@@ -70,7 +78,6 @@ public class PlayerMovement : MonoBehaviour {
 		else
 		{
 			playerCollider.enabled = false;
-			playerFeetCollider.enabled = false;
 			characterRigidbody.gravityScale = 1f;
 			characterRigidbody.velocity = Vector2.up * deathAnimationUplift;
 			Invoke("DeathFall", invokeDeathFall);
@@ -88,7 +95,7 @@ public class PlayerMovement : MonoBehaviour {
 		gameSession.ProcessPlayerDeath();
 	}
 
-	bool IsGrounded()
+	Collider2D RaycastHitCheck()
 	{
 		Vector2 position = transform.position;
 		Vector2 direction = Vector2.down * 0.5f;
@@ -99,10 +106,14 @@ public class PlayerMovement : MonoBehaviour {
 		RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
 		if (hit.collider != null)
 		{
-			return true;
+			raycastCollide = true;
+		}
+		else
+		{
+			raycastCollide = false;
 		}
 
-		return false;
+		return hit.collider;
 	}
 
 	private void DeathFall()
@@ -340,18 +351,19 @@ public class PlayerMovement : MonoBehaviour {
 			currentMaxJumps = maxJumps;
 		}
 
-		if (newContact.otherCollider == playerFeetCollider)
+		if (RaycastHitCheck().name == "Foreground")
 		{
 			jumpTime = 0;
 			canJump = true;
 			grounded = true;
+			print("yes");
 		}
 
-		if (newContact.otherCollider == playerCollider && newContact.collider.gameObject.name == "Enemy")
+		if (newContact.collider.gameObject.name == "Enemy" && RaycastHitCheck().gameObject.name != "Enemy")
 		{
 			playerDeath = true;
 		}
-		else if (newContact.otherCollider == playerFeetCollider && newContact.collider.gameObject.name == "Enemy")
+		else if (RaycastHitCheck().gameObject.name == "Enemy")
 		{
 			Destroy(collision.gameObject);
 		}
@@ -364,7 +376,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D collision)
 	{
-		if (collision.otherCollider == playerFeetCollider)
+		if (RaycastHitCheck().name == "Foreground")
 		{
 			grounded = false;
 		}
