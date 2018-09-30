@@ -379,6 +379,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (RaycastHitCheck().name == "Foreground")
 		{
 			grounded = false;
+			print("no");
 		}
 	}
 

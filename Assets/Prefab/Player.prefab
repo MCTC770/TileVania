@@ -793,7 +793,7 @@ MonoBehaviour:
   playerDeath: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 188928
+    m_Bits: 8704
   movementSpeed: 350
   climbSpeed: 100
   jumpHeight: 1150
