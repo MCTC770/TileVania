@@ -56,9 +56,11 @@ public class PlayerMovement : MonoBehaviour {
 	LayerMask enemyLayer = 13;
 	LayerMask ladderLayer = 10;
 	LayerMask foregroundLayer = 9;
+	CircleCollider2D PlayerFeetTrigger;
 
 	// Use this for initialization
 	void Start () {
+		PlayerFeetTrigger = GetComponent<CircleCollider2D>();
 		characterRigidbody = GetComponent<Rigidbody2D>();
 		characterAnimator.SetBool("Running", false);
 		setGravityScale = characterRigidbody.gravityScale;
@@ -364,42 +366,14 @@ public class PlayerMovement : MonoBehaviour {
 			currentMaxJumps = maxJumps;
 		}
 
-		if (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.layer == foregroundLayer)
-		{
-			jumpTime = 0;
-			canJump = true;
-			grounded = true;
-		}
-
-		//print("grounded: " + grounded + " jumpTime: " + jumpTime + " canJump: " + canJump);
-
-		//print("RaycastHitCheck() == true: " + (RaycastHitCheck() == true));
-		//print("RaycastHitCheck().collider != null: " + (RaycastHitCheck().collider != null));
-		//print("RaycastHitCheck().collider.gameObject.name == Foreground: " + (RaycastHitCheck().collider.gameObject.name == "Foreground"));
-
-		//print("RaycastHitCheck() == true: " + (RaycastHitCheck() == true) + " RaycastHitCheck().collider != null: " + (RaycastHitCheck().collider != null) + " RaycastHitCheck().collider.gameObject.name == Foreground: " + (RaycastHitCheck().collider.gameObject.name == "Foreground"));
-		//print("ifStatement: " + (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.name == "Foreground"));
-
-		if (collision.collider.gameObject.layer == enemyLayer && RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.layer != enemyLayer)
+		if (collision.collider.gameObject.layer == enemyLayer)
 		{
 			playerDeath = true;
-		}
-		else if (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.layer == enemyLayer)
-		{
-			Destroy(collision.collider.gameObject);
 		}
 
 		if (collision.collider.gameObject.layer == hazardLayer)
 		{
 			playerDeath = true;
-		}
-	}
-
-	void OnCollisionExit2D(Collision2D collision)
-	{
-		if (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.layer == foregroundLayer)
-		{
-			grounded = false;
 		}
 	}
 
@@ -409,6 +383,19 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			climbAvailable = true;
 		}
+
+		if (collider.gameObject.layer == foregroundLayer)
+		{
+			jumpTime = 0;
+			canJump = true;
+			grounded = true;
+		}
+
+		if (collider.gameObject.layer == enemyLayer)
+		{
+			Destroy(collider.gameObject);
+			playerDeath = false;
+		}
 	}
 
 	private void OnTriggerExit2D(Collider2D collider)
@@ -416,6 +403,11 @@ public class PlayerMovement : MonoBehaviour {
 		if (collider.gameObject.layer == ladderLayer)
 		{
 			climbAvailable = false;
+		}
+
+		if (collider.gameObject.layer == foregroundLayer)
+		{
+			grounded = false;
 		}
 	}
 }
