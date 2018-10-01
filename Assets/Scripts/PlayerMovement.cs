@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float deathGravity = 5f;
 	[SerializeField] float invokeDeathFall = 0.5f;
 	[SerializeField] float deathSequenceTime = 0.8f;
+	[SerializeField] float raycastLength = 0.5f;
 	[SerializeField] int maxJumps = 1;
 	[SerializeField] int currentMaxJumps;
 	[SerializeField] Animator characterAnimator;
@@ -97,7 +98,7 @@ public class PlayerMovement : MonoBehaviour {
 	RaycastHit2D RaycastHitCheck()
 	{
 		Vector2 position = transform.position;
-		Vector2 direction = Vector2.down * 0.5f;
+		Vector2 direction = Vector2.down * raycastLength;
 		float distance = 1.0f;
 
 		Debug.DrawRay(position, direction, Color.green);
@@ -365,14 +366,16 @@ public class PlayerMovement : MonoBehaviour {
 			grounded = true;
 		}
 
-		if (collision.collider.gameObject.name == "Enemy" && RaycastHitCheck().collider.gameObject.name != "Enemy")
+		if (collision.collider.gameObject.name == "Enemy" && RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.name != "Enemy")
 		{
 			playerDeath = true;
 		}
-		else if (RaycastHitCheck().collider.gameObject.name == "Enemy")
+		else if (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.name == "Enemy")
 		{
 			Destroy(collision.collider.gameObject);
 		}
+
+		print("collision.collider.gameObject.name: " + collision.collider.gameObject.name);
 
 		if (collision.collider.gameObject.name == "Hazards")
 		{
@@ -382,7 +385,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D collision)
 	{
-		if (RaycastHitCheck().collider.gameObject.name == "Foreground")
+		if (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.name == "Foreground")
 		{
 			grounded = false;
 		}

@@ -19,7 +19,6 @@ public class StarCounter : MonoBehaviour {
 		secondStar = GameObject.Find("Star2");
 		thirdStar = GameObject.Find("Star3");
 
-		print(firstStar + " " + secondStar + " " + thirdStar);
 		if (firstStar == null)
 		{
 			firstStarUI.GetComponent<Image>().sprite = fullStar.GetComponent<Image>().sprite;
