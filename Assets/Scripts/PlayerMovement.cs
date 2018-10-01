@@ -344,6 +344,11 @@ public class PlayerMovement : MonoBehaviour {
 			grounded = true;
 		}
 
+		if (collider.gameObject.layer == playerPickupsLayer)
+		{
+			transform.position = new Vector2(transform.position.x, transform.position.y + 0.3f);
+		}
+
 		if (collider.gameObject.layer == enemyLayer && !collider.isTrigger)
 		{
 			print(collider.gameObject.GetComponent<PolygonCollider2D>());
