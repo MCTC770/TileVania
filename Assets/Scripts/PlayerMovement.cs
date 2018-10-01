@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour {
 	public LayerMask groundLayer;
 
 	[SerializeField] float movementSpeed = 1200f;
+	[SerializeField] float runSpeed = 800f;
 	[SerializeField] float climbSpeed = 500f;
 	[SerializeField] float jumpHeight = 5000f;
 	[SerializeField] float maxJumpTime = 0.135f;
@@ -36,6 +37,7 @@ public class PlayerMovement : MonoBehaviour {
 	float jumpTime = 0;
 	float setGravityScale;
 	float movementFixSpeed;
+	float movementSpeedAtStart;
 	bool jumpEnd = false;
 	bool jumpNotStarted = true;
 	bool grounded = false;
@@ -63,9 +65,6 @@ public class PlayerMovement : MonoBehaviour {
 	void Update ()
 	{
 		RaycastHitCheck();
-		print(grounded);
-		print(RaycastHitCheck());
-
 		CheckForPlayerDeath();
 	}
 
@@ -95,7 +94,7 @@ public class PlayerMovement : MonoBehaviour {
 		gameSession.ProcessPlayerDeath();
 	}
 
-	Collider2D RaycastHitCheck()
+	RaycastHit2D RaycastHitCheck()
 	{
 		Vector2 position = transform.position;
 		Vector2 direction = Vector2.down * 0.5f;
@@ -113,7 +112,7 @@ public class PlayerMovement : MonoBehaviour {
 			raycastCollide = false;
 		}
 
-		return hit.collider;
+		return hit;
 	}
 
 	private void DeathFall()
@@ -132,7 +131,17 @@ public class PlayerMovement : MonoBehaviour {
 	private void HorizontalMovementInput()
 	{
 		float horizontalMovementInput = CrossPlatformInputManager.GetAxis("Horizontal");
-		float movementSpeedTimesInput = movementSpeed * horizontalMovementInput * Time.deltaTime;
+		float runInput = CrossPlatformInputManager.GetAxis("Run");
+		float walkSpeed;
+		if (runInput == 1f)
+		{
+			walkSpeed = runSpeed;
+		}
+		else
+		{
+			walkSpeed = movementSpeed;
+		}
+		float movementSpeedTimesInput = walkSpeed * horizontalMovementInput * Time.deltaTime;
 		characterRigidbody.velocity = Vector2.right * movementSpeedTimesInput;
 
 		CharacterRunAnimation(horizontalMovementInput);
@@ -341,34 +350,31 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		ContactPoint2D newContact = collision.contacts[0];
-
-		if ((newContact.collider.gameObject.name == "PlayerPickup" || newContact.collider.gameObject.name == "PlayerPickup(Clone)") && newContact.otherCollider == playerCollider && grounded && maxJumps < 10)
+		if ((collision.collider.gameObject.name == "PlayerPickup" || collision.collider.gameObject.name == "PlayerPickup(Clone)") && grounded && maxJumps < 10)
 		{
-			Destroy(newContact.collider.gameObject);
+			Destroy(collision.collider.gameObject);
 			maxJumps += 1;
 
 			currentMaxJumps = maxJumps;
 		}
 
-		if (RaycastHitCheck().name == "Foreground")
+		if (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.name == "Foreground")
 		{
 			jumpTime = 0;
 			canJump = true;
 			grounded = true;
-			print("yes");
 		}
 
-		if (newContact.collider.gameObject.name == "Enemy" && RaycastHitCheck().gameObject.name != "Enemy")
+		if (collision.collider.gameObject.name == "Enemy" && RaycastHitCheck().collider.gameObject.name != "Enemy")
 		{
 			playerDeath = true;
 		}
-		else if (RaycastHitCheck().gameObject.name == "Enemy")
+		else if (RaycastHitCheck().collider.gameObject.name == "Enemy")
 		{
-			Destroy(collision.gameObject);
+			Destroy(collision.collider.gameObject);
 		}
 
-		if (newContact.collider.gameObject.name == "Hazards")
+		if (collision.collider.gameObject.name == "Hazards")
 		{
 			playerDeath = true;
 		}
@@ -376,10 +382,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D collision)
 	{
-		if (RaycastHitCheck().name == "Foreground")
+		if (RaycastHitCheck().collider.gameObject.name == "Foreground")
 		{
 			grounded = false;
-			print("no");
 		}
 	}
 

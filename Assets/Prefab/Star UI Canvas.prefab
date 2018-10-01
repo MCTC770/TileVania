@@ -159,7 +159,6 @@ MonoBehaviour:
   starsCollected: 0
   starsTotal: 0
   starText: {fileID: 114157274013899416}
-  currentGameSession: {fileID: 0}
 --- !u!114 &114740472565051178
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -225,7 +224,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 220, y: 103}
+  m_AnchoredPosition: {x: 390, y: 197}
   m_SizeDelta: {x: 50.09, y: 39.83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224865016761301756
@@ -243,7 +242,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 177.2, y: 109.7}
+  m_AnchoredPosition: {x: 347.2, y: 203.7}
   m_SizeDelta: {x: 40.6, y: 40.64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224939064602324836

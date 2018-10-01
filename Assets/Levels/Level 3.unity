@@ -12365,19 +12365,19 @@ Prefab:
     - target: {fileID: 20720175380643048, guid: 8f82a706e85665341b68bd708a674aee,
         type: 2}
       propertyPath: orthographic size
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4763381182493464, guid: 8f82a706e85665341b68bd708a674aee, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -15.095261
       objectReference: {fileID: 0}
     - target: {fileID: 4763381182493464, guid: 8f82a706e85665341b68bd708a674aee, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -1.9984174
       objectReference: {fileID: 0}
     - target: {fileID: 4763381182493464, guid: 8f82a706e85665341b68bd708a674aee, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1432007893565656, guid: 8f82a706e85665341b68bd708a674aee, type: 2}
       propertyPath: m_IsActive
@@ -12520,16 +12520,6 @@ Prefab:
     - target: {fileID: 4015692865364284, guid: d66962398c46c324385d66e51ca88e7a, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
-        type: 2}
-      propertyPath: groundLayer.m_Bits
-      value: 8704
-      objectReference: {fileID: 0}
-    - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
-        type: 2}
-      propertyPath: playerDeath
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d66962398c46c324385d66e51ca88e7a, type: 2}

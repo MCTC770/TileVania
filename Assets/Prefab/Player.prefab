@@ -228,7 +228,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1763779761074678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.75, y: -2.31, z: 0}
+  m_LocalPosition: {x: -22, y: -2.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4021676634546260}
@@ -795,6 +795,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8704
   movementSpeed: 350
+  runSpeed: 700
   climbSpeed: 100
   jumpHeight: 1150
   maxJumpTime: 0.4

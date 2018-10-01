@@ -18,7 +18,7 @@ public class CoinPickup : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
-		if (collider.gameObject.name == "Player" /*&& collider == playerColliders[0]*/)
+		if (collider.gameObject.name == "Player")
 		{
 			Transform coinSoundInstance = Instantiate(coinPickupSound, transform.position, Quaternion.identity);
 			coinSoundInstance.parent = transform.parent;

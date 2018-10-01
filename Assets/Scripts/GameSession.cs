@@ -13,6 +13,7 @@ public class GameSession : MonoBehaviour {
 	[SerializeField] Text scoreText;
 
 	int score = 0;
+	int totalStars;
 
 	private void Awake()
 	{
@@ -28,10 +29,12 @@ public class GameSession : MonoBehaviour {
 	}
 
 	void Start () {
+		totalStars = FindObjectsOfType<StarPickup>().Length;
 	}
 
 	private void Update()
 	{
+		print(totalStars);
 		UpdateUITexts();
 	}
 

@@ -7,6 +7,7 @@ public class LevelExit : MonoBehaviour {
 
 	[SerializeField] float delayUntilNextSceneLoad = 1.0f;
 	[SerializeField] float LevelExitSloMoFactor = 0.2f;
+	public bool loadingNextLevel = false;
 
 	private void Start()
 	{
@@ -20,6 +21,7 @@ public class LevelExit : MonoBehaviour {
 
 	IEnumerator LoadNextScene()
 	{
+		loadingNextLevel = true;
 		int sceneCount = SceneManager.sceneCountInBuildSettings - 1;
 		int currentScene = SceneManager.GetActiveScene().buildIndex + 1;
 

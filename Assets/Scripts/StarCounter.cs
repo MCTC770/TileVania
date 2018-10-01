@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class StarCounter : MonoBehaviour {
 
 	public int starsCollected = 0;
-	public int starsTotal;
+	public int starsTotal = 0;
 	[SerializeField] Text starText;
-	[SerializeField] GameSession currentGameSession;
+	GameSession currentGameSession;
 
 	void Start ()
 	{
@@ -19,6 +19,6 @@ public class StarCounter : MonoBehaviour {
 	private void Update()
 	{
 		starsCollected = currentGameSession.starsCollected;
-		starText.text = starsCollected.ToString() + "/" + starsTotal.ToString();
+		starText.text = starsCollected.ToString() + "/" + "3";
 	}
 }
