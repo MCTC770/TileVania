@@ -873,11 +873,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDeath: 0
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8704
-  movementSpeed: 300
-  runSpeed: 600
+  movementSpeed: 350
+  runSpeed: 500
   climbSpeed: 100
   jumpHeight: 1150
   maxJumpTime: 0.4
@@ -887,7 +884,6 @@ MonoBehaviour:
   deathGravity: 250
   invokeDeathFall: 0.4
   deathSequenceTime: 1
-  raycastLength: 0.5
   maxJumps: 1
   currentMaxJumps: 0
   characterAnimator: {fileID: 95308426458105034}

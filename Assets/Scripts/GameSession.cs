@@ -12,7 +12,7 @@ public class GameSession : MonoBehaviour {
 	[SerializeField] Text livesText;
 	[SerializeField] Text scoreText;
 
-	int score = 0;
+	int coinAmount = 0;
 	int totalStars;
 
 	private void Awake()
@@ -40,12 +40,18 @@ public class GameSession : MonoBehaviour {
 	private void UpdateUITexts()
 	{
 		livesText.text = playerLives.ToString();
-		scoreText.text = score.ToString();
+		scoreText.text = coinAmount.ToString();
 	}
 
 	public void TrackCoinAmount(int coinsToAdd)
 	{
-		score += coinsToAdd;
+		coinAmount += coinsToAdd;
+		if (coinAmount >= 100)
+		{
+			playerLives += 1;
+			coinAmount -= 100;
+		}
+
 	}
 
 	public void TrackStarAmount()
