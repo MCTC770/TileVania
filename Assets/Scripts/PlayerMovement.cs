@@ -51,6 +51,11 @@ public class PlayerMovement : MonoBehaviour {
 	int jumpCounter = 0;
 	Rigidbody2D characterRigidbody;
 	GameSession gameSession;
+	LayerMask playerPickupsLayer = 17;
+	LayerMask hazardLayer = 14;
+	LayerMask enemyLayer = 13;
+	LayerMask ladderLayer = 10;
+	LayerMask foregroundLayer = 9;
 
 	// Use this for initialization
 	void Start () {
@@ -351,7 +356,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if ((collision.collider.gameObject.name == "PlayerPickup" || collision.collider.gameObject.name == "PlayerPickup(Clone)") && grounded && maxJumps < 10)
+		if (collision.collider.gameObject.layer == playerPickupsLayer && grounded && maxJumps < 10)
 		{
 			Destroy(collision.collider.gameObject);
 			maxJumps += 1;
@@ -359,7 +364,7 @@ public class PlayerMovement : MonoBehaviour {
 			currentMaxJumps = maxJumps;
 		}
 
-		if (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.name == "Foreground")
+		if (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.layer == foregroundLayer)
 		{
 			jumpTime = 0;
 			canJump = true;
@@ -375,16 +380,16 @@ public class PlayerMovement : MonoBehaviour {
 		//print("RaycastHitCheck() == true: " + (RaycastHitCheck() == true) + " RaycastHitCheck().collider != null: " + (RaycastHitCheck().collider != null) + " RaycastHitCheck().collider.gameObject.name == Foreground: " + (RaycastHitCheck().collider.gameObject.name == "Foreground"));
 		//print("ifStatement: " + (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.name == "Foreground"));
 
-		if (collision.collider.gameObject.name == "Enemy" && RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.name != "Enemy")
+		if (collision.collider.gameObject.layer == enemyLayer && RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.layer != enemyLayer)
 		{
 			playerDeath = true;
 		}
-		else if (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.name == "Enemy")
+		else if (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.layer == enemyLayer)
 		{
 			Destroy(collision.collider.gameObject);
 		}
 
-		if (collision.collider.gameObject.name == "Hazards")
+		if (collision.collider.gameObject.layer == hazardLayer)
 		{
 			playerDeath = true;
 		}
@@ -392,7 +397,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D collision)
 	{
-		if (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.name == "Foreground")
+		if (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.layer == foregroundLayer)
 		{
 			grounded = false;
 		}
@@ -400,7 +405,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
-		if (collider.gameObject.name == "Ladders")
+		if (collider.gameObject.layer == ladderLayer)
 		{
 			climbAvailable = true;
 		}
@@ -408,7 +413,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void OnTriggerExit2D(Collider2D collider)
 	{
-		if (collider.gameObject.name == "Ladders")
+		if (collider.gameObject.layer == ladderLayer)
 		{
 			climbAvailable = false;
 		}
