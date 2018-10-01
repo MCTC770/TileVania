@@ -7,13 +7,9 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerMovement : MonoBehaviour {
 
-	//todo: prevent jumping while falling (not a fall after a jump) -> Done!
-	//todo: you can't jump, if you glide to ground from wall
-	//todo: double jump currently doesn't work, when you reached maxJumpTime -> Done!
-	//todo: tweak fallGravity for multi jumping
+	//todo: re-enable jumping while falling (not a fall after a jump), if player has more then 1 character
 
 	public bool playerDeath = false;
-	public LayerMask groundLayer;
 
 	[SerializeField] float movementSpeed = 1200f;
 	[SerializeField] float runSpeed = 800f;
@@ -26,7 +22,6 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float deathGravity = 5f;
 	[SerializeField] float invokeDeathFall = 0.5f;
 	[SerializeField] float deathSequenceTime = 0.8f;
-	[SerializeField] float raycastLength = 0.5f;
 	[SerializeField] int maxJumps = 1;
 	[SerializeField] int currentMaxJumps;
 	[SerializeField] Animator characterAnimator;
@@ -47,7 +42,7 @@ public class PlayerMovement : MonoBehaviour {
 	bool climbAvailable = false;
 	bool noJumpWhenFalling = true;
 	bool spawnedPlayerPickup = false;
-	bool raycastCollide = false;
+	bool enemyDefeated = false;
 	int jumpCounter = 0;
 	Rigidbody2D characterRigidbody;
 	GameSession gameSession;
@@ -72,7 +67,6 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		RaycastHitCheck();
 		CheckForPlayerDeath();
 	}
 
@@ -100,27 +94,6 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		gameSession.playerLives -= 1;
 		gameSession.ProcessPlayerDeath();
-	}
-
-	RaycastHit2D RaycastHitCheck()
-	{
-		Vector2 position = transform.position;
-		Vector2 direction = Vector2.down * raycastLength;
-		float distance = 1.0f;
-
-		Debug.DrawRay(position, direction, Color.green);
-
-		RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
-		if (hit.collider != null)
-		{
-			raycastCollide = true;
-		}
-		else
-		{
-			raycastCollide = false;
-		}
-
-		return hit;
 	}
 
 	private void DeathFall()
@@ -356,27 +329,6 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
-	{
-		if (collision.collider.gameObject.layer == playerPickupsLayer && grounded && maxJumps < 10)
-		{
-			Destroy(collision.collider.gameObject);
-			maxJumps += 1;
-
-			currentMaxJumps = maxJumps;
-		}
-
-		if (collision.collider.gameObject.layer == enemyLayer)
-		{
-			playerDeath = true;
-		}
-
-		if (collision.collider.gameObject.layer == hazardLayer)
-		{
-			playerDeath = true;
-		}
-	}
-
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
 		if (collider.gameObject.layer == ladderLayer)
@@ -391,10 +343,11 @@ public class PlayerMovement : MonoBehaviour {
 			grounded = true;
 		}
 
-		if (collider.gameObject.layer == enemyLayer)
+		if (collider.gameObject.layer == enemyLayer && !collider.isTrigger)
 		{
+			print(collider.gameObject.GetComponent<PolygonCollider2D>());
 			Destroy(collider.gameObject);
-			playerDeath = false;
+			enemyDefeated = true;
 		}
 	}
 
@@ -409,5 +362,28 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			grounded = false;
 		}
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.collider.gameObject.layer == playerPickupsLayer && grounded && maxJumps < 10)
+		{
+			Destroy(collision.collider.gameObject);
+			maxJumps += 1;
+
+			currentMaxJumps = maxJumps;
+		}
+
+		if (collision.collider.gameObject.layer == enemyLayer && !enemyDefeated)
+		{
+			playerDeath = true;
+		}
+
+		if (collision.collider.gameObject.layer == hazardLayer)
+		{
+			playerDeath = true;
+		}
+
+		enemyDefeated = false;
 	}
 }
