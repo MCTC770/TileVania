@@ -19,9 +19,9 @@ public class StarCounter : MonoBehaviour {
 
 	void Start ()
 	{
-		firstStar = GameObject.Find("Star 1");
-		secondStar = GameObject.Find("Star 2");
-		thirdStar = GameObject.Find("Star 3");
+		firstStar = GameObject.Find("Star1");
+		secondStar = GameObject.Find("Star2");
+		thirdStar = GameObject.Find("Star3");
 		starsTotal = FindObjectsOfType<StarPickup>().Length;
 		currentGameSession = FindObjectOfType<GameSession>();
 	}
