@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class StarCounter : MonoBehaviour {
 
-	public int starsCollected = 0;
-	public int starsTotal = 0;
-	[SerializeField] Text starText;
 	[SerializeField] Image firstStarUI;
 	GameObject firstStar;
 	[SerializeField] Image secondStarUI;
@@ -15,20 +12,14 @@ public class StarCounter : MonoBehaviour {
 	[SerializeField] Image thirdStarUI;
 	GameObject thirdStar;
 	[SerializeField] Image fullStar;
-	GameSession currentGameSession;
 
-	void Start ()
+	private void Update()
 	{
 		firstStar = GameObject.Find("Star1");
 		secondStar = GameObject.Find("Star2");
 		thirdStar = GameObject.Find("Star3");
-		starsTotal = FindObjectsOfType<StarPickup>().Length;
-		currentGameSession = FindObjectOfType<GameSession>();
-	}
 
-	private void Update()
-	{
-		print(firstStar);
+		print(firstStar + " " + secondStar + " " + thirdStar);
 		if (firstStar == null)
 		{
 			firstStarUI.GetComponent<Image>().sprite = fullStar.GetComponent<Image>().sprite;
@@ -41,7 +32,5 @@ public class StarCounter : MonoBehaviour {
 		{
 			thirdStarUI.GetComponent<Image>().sprite = fullStar.GetComponent<Image>().sprite;
 		}
-		starsCollected = currentGameSession.starsCollected;
-		starText.text = starsCollected.ToString() + "/" + "3";
 	}
 }
