@@ -366,6 +366,15 @@ public class PlayerMovement : MonoBehaviour {
 			grounded = true;
 		}
 
+		//print("grounded: " + grounded + " jumpTime: " + jumpTime + " canJump: " + canJump);
+
+		//print("RaycastHitCheck() == true: " + (RaycastHitCheck() == true));
+		//print("RaycastHitCheck().collider != null: " + (RaycastHitCheck().collider != null));
+		//print("RaycastHitCheck().collider.gameObject.name == Foreground: " + (RaycastHitCheck().collider.gameObject.name == "Foreground"));
+
+		//print("RaycastHitCheck() == true: " + (RaycastHitCheck() == true) + " RaycastHitCheck().collider != null: " + (RaycastHitCheck().collider != null) + " RaycastHitCheck().collider.gameObject.name == Foreground: " + (RaycastHitCheck().collider.gameObject.name == "Foreground"));
+		//print("ifStatement: " + (RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.name == "Foreground"));
+
 		if (collision.collider.gameObject.name == "Enemy" && RaycastHitCheck() == true && RaycastHitCheck().collider != null && RaycastHitCheck().collider.gameObject.name != "Enemy")
 		{
 			playerDeath = true;
@@ -374,8 +383,6 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			Destroy(collision.collider.gameObject);
 		}
-
-		print("collision.collider.gameObject.name: " + collision.collider.gameObject.name);
 
 		if (collision.collider.gameObject.name == "Hazards")
 		{
