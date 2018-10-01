@@ -188,7 +188,7 @@ public class PlayerMovement : MonoBehaviour {
 			jumpInput = CrossPlatformInputManager.GetAxis("Jump");
 		}
 
-		float jumpHeightTimesInput = jumpHeight * jumpInput * Time.deltaTime;
+		float jumpHeightTimesInput = jumpHeight * jumpInput * (1f/60f); //Time.deltaTime;
 
 		CheckForHoldedJumpButton();
 		DoJump(jumpHeightTimesInput);
@@ -238,7 +238,8 @@ public class PlayerMovement : MonoBehaviour {
 			{
 				for(var i = 0; i <= maxJumps; i++)
 				{
-					if (playerList[i] == playerList[maxJumps - 2])
+					print("i: " + i + " playerList[i]: " + playerList[i] + "playerList[maxJumps - 2]" + playerList[maxJumps - 2]);
+					if (i <= maxJumps - 2)
 					{
 						playerList[i].SetActive(true);
 					}

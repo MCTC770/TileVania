@@ -874,7 +874,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDeath: 0
   movementSpeed: 350
-  runSpeed: 500
+  runSpeed: 550
   climbSpeed: 100
   jumpHeight: 1150
   maxJumpTime: 0.4
