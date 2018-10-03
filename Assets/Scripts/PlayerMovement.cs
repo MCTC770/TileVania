@@ -238,13 +238,20 @@ public class PlayerMovement : MonoBehaviour {
 			{
 				for(var i = 0; i <= maxJumps; i++)
 				{
-					print("i: " + i + " playerList[i]: " + playerList[i] + "playerList[maxJumps - 2]" + playerList[maxJumps - 2]);
 					if (i <= maxJumps - 2)
 					{
 						playerList[i].SetActive(true);
 					}
 				}
 			}
+			if (maxJumps >= 1)
+				for (var i = playerList.Count; i >= currentMaxJumps; i--)
+				{
+					if (i - 1 > currentMaxJumps - 1)
+					{
+						playerList[i - 2].SetActive(false);
+					}
+				}
 		}
 
 		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false)
@@ -261,6 +268,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			for (var i = playerList.Count; i >= currentMaxJumps; i--)
 			{
+				print("playerList[i-1]: " + playerList[i - 1] + " | playerList[currentMaxJumps-1]: " + playerList[currentMaxJumps - 1]);
 				if (playerList[i-1] != playerList[currentMaxJumps-1])
 				{
 					playerList[i-2].SetActive(false);
