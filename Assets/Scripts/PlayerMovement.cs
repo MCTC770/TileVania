@@ -284,7 +284,6 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false)
 		{
-			playerPickups.wasSpawned = true;
 			Instantiate(playerPickups, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
 
 			currentMaxJumps -= 1;
