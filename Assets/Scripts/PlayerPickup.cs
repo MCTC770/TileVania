@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class PlayerPickup : MonoBehaviour {
 
+	PlayerMovement player;
+
 	// Use this for initialization
 	void Start () {
+		player = FindObjectOfType<PlayerMovement>();
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
+	private void Update()
 	{
-
-		if (collision.gameObject.layer == 9)
+		if(player.grounded)
 		{
 			gameObject.layer = 17;
+		}
+		else
+		{
+			gameObject.layer = 18;
 		}
 	}
 }

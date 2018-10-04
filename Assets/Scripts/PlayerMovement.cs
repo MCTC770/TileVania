@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour {
 	//todo: re-enable jumping while falling (not a fall after a jump), if player has more then 1 character
 
 	public bool playerDeath = false;
+	public bool grounded = false;
 
 	[SerializeField] float movementSpeed = 1200f;
 	[SerializeField] float runSpeed = 800f;
@@ -39,7 +40,6 @@ public class PlayerMovement : MonoBehaviour {
 	float movementSpeedAtStart;
 	bool jumpEnd = false;
 	bool jumpNotStarted = true;
-	bool grounded = false;
 	bool canJump = true;
 	bool currentJump = false;
 	bool climbAvailable = false;
@@ -382,7 +382,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (collider.gameObject.layer == playerPickupsLayer)
 		{
-			transform.position = new Vector2(transform.position.x, transform.position.y + 0.3f);
+			//transform.position = new Vector2(transform.position.x, transform.position.y + 0.3f);
 		}
 
 		if (collider.gameObject.layer == enemyLayer && !collider.isTrigger)
