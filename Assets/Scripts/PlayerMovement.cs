@@ -22,11 +22,14 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float deathGravity = 5f;
 	[SerializeField] float invokeDeathFall = 0.5f;
 	[SerializeField] float deathSequenceTime = 0.8f;
+	[SerializeField] float raycastLength = 1.246f;
+	[SerializeField] float raycastLengthAddValue = 0.9f;
 	[SerializeField] int maxJumps = 1;
 	[SerializeField] int currentMaxJumps;
+	[SerializeField] LayerMask layer;
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
-	[SerializeField] GameObject playerPickups;
+	[SerializeField] PlayerPickup playerPickups;
 	[SerializeField] List<GameObject> playerList = new List<GameObject>();
 
 	float jumpInput = 0;
@@ -52,6 +55,7 @@ public class PlayerMovement : MonoBehaviour {
 	LayerMask ladderLayer = 10;
 	LayerMask foregroundLayer = 9;
 	CircleCollider2D PlayerFeetTrigger;
+	RaycastHit2D checkPlayerPickupRaycastHit;
 
 	// Use this for initialization
 	void Start () {
@@ -64,10 +68,34 @@ public class PlayerMovement : MonoBehaviour {
 		currentMaxJumps = maxJumps;
 	}
 	
-	// Update is called once per frame
 	void Update ()
 	{
 		CheckForPlayerDeath();
+	}
+
+	private bool CheckRaycastHit(string directionCheck)
+	{
+		if (directionCheck == "top")
+		{
+			Vector2 position = transform.position;
+			Vector2 direction = Vector2.up * (raycastLength + (raycastLengthAddValue * (maxJumps - 1)));
+			float distance = direction.y;
+
+			Debug.DrawRay(position, direction, Color.green);
+
+			if (Physics2D.Raycast(position, direction, distance, layer))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	private void CheckForPlayerDeath()
@@ -256,7 +284,9 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false)
 		{
-			Instantiate(playerPickups, new Vector2 (transform.position.x, transform.position.y - 1), Quaternion.identity);
+			playerPickups.wasSpawned = true;
+			Instantiate(playerPickups, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
+
 			currentMaxJumps -= 1;
 
 			if (currentMaxJumps < 1)
@@ -268,7 +298,6 @@ public class PlayerMovement : MonoBehaviour {
 
 			for (var i = playerList.Count; i >= currentMaxJumps; i--)
 			{
-				print("playerList[i-1]: " + playerList[i - 1] + " | playerList[currentMaxJumps-1]: " + playerList[currentMaxJumps - 1]);
 				if (playerList[i-1] != playerList[currentMaxJumps-1])
 				{
 					playerList[i-2].SetActive(false);
@@ -359,7 +388,6 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (collider.gameObject.layer == enemyLayer && !collider.isTrigger)
 		{
-			print(collider.gameObject.GetComponent<PolygonCollider2D>());
 			Destroy(collider.gameObject);
 			enemyDefeated = true;
 		}
@@ -380,7 +408,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.collider.gameObject.layer == playerPickupsLayer && grounded && maxJumps < 10)
+		if (collision.collider.gameObject.layer == playerPickupsLayer && grounded && maxJumps < 10 && !CheckRaycastHit("top"))
 		{
 			Destroy(collision.collider.gameObject);
 			maxJumps += 1;

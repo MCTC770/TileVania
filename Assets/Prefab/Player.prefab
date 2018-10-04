@@ -248,7 +248,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1763779761074678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22, y: -4.47, z: 0}
+  m_LocalPosition: {x: -20.574, y: -2.451, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4021676634546260}
@@ -884,11 +884,16 @@ MonoBehaviour:
   deathGravity: 250
   invokeDeathFall: 0.4
   deathSequenceTime: 1
+  raycastLength: 1.246
+  raycastLengthAddValue: 0.9
   maxJumps: 1
   currentMaxJumps: 1
+  layer:
+    serializedVersion: 2
+    m_Bits: 26112
   characterAnimator: {fileID: 95308426458105034}
   playerCollider: {fileID: 70896447067235920}
-  playerPickups: {fileID: 1497258086810926, guid: 174d881d80a791a4983fb55019932669,
+  playerPickups: {fileID: 114442515836695266, guid: 174d881d80a791a4983fb55019932669,
     type: 2}
   playerList:
   - {fileID: 1581171988836890}

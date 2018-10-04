@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212097773955736782}
   - component: {fileID: 50261033140570994}
   - component: {fileID: 70791050903798460}
-  - component: {fileID: 70469516938352334}
+  - component: {fileID: 114442515836695266}
   m_Layer: 17
   m_Name: PlayerPickup
   m_TagString: Untagged
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1497258086810926}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -16.65, y: -4.41, z: -0.05078125}
+  m_LocalPosition: {x: -11.00867, y: -0.35, z: -0.05078125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,21 +63,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!70 &70469516938352334
-CapsuleCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1497258086810926}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.011131048, y: -0.2708552}
-  m_Size: {x: 0.42860627, y: 0.4434476}
-  m_Direction: 0
 --- !u!70 &70791050903798460
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -90,9 +75,29 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00999999, y: -0.026608527}
-  m_Size: {x: 0.49, y: 0.80321705}
+  m_Offset: {x: -0.00999999, y: -0.059326053}
+  m_Size: {x: 0.49, y: 0.8686521}
   m_Direction: 0
+--- !u!114 &114442515836695266
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1497258086810926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705871822de92e946b36b37313665804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wasSpawned: 1
+  raycastLengthUp: 0.376
+  raycastLengthDown: 0.494
+  raycastLengthLeft: 0.235
+  raycastLengthRight: 0.255
+  adjustmentValue: 1
+  layer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!212 &212097773955736782
 SpriteRenderer:
   m_ObjectHideFlags: 1
