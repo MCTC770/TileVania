@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50261033140570994}
   - component: {fileID: 70791050903798460}
   - component: {fileID: 114442515836695266}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: PlayerPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,15 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 705871822de92e946b36b37313665804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wasSpawned: 1
-  raycastLengthUp: 0.376
-  raycastLengthDown: 0.494
-  raycastLengthLeft: 0.235
-  raycastLengthRight: 0.255
-  adjustmentValue: 1
-  layer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!212 &212097773955736782
 SpriteRenderer:
   m_ObjectHideFlags: 1
