@@ -143,14 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473bc98c08048c34c9f9063ac7611986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustLensIdle:
-    FieldOfView: 0
-    OrthographicSize: 5.3
-    NearClipPlane: 0.1
-    FarClipPlane: 5000
-    Dutch: 0
-    <Orthographic>k__BackingField: 0
-    <Aspect>k__BackingField: 0
 --- !u!114 &41169167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,7 +633,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 174979060}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.095266, y: -1.9984171, z: 0}
+  m_LocalPosition: {x: -15.099603, y: 3.7905192, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 994185138}
@@ -1025,14 +1017,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473bc98c08048c34c9f9063ac7611986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustLensIdle:
-    FieldOfView: 0
-    OrthographicSize: 5.3
-    NearClipPlane: 0.1
-    FarClipPlane: 5000
-    Dutch: 0
-    <Orthographic>k__BackingField: 0
-    <Aspect>k__BackingField: 0
 --- !u!114 &324870889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1334,14 +1318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473bc98c08048c34c9f9063ac7611986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustLensIdle:
-    FieldOfView: 0
-    OrthographicSize: 5.3
-    NearClipPlane: 0.1
-    FarClipPlane: 5000
-    Dutch: 0
-    <Orthographic>k__BackingField: 0
-    <Aspect>k__BackingField: 0
 --- !u!114 &666832386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1688,14 +1664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473bc98c08048c34c9f9063ac7611986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustLensIdle:
-    FieldOfView: 0
-    OrthographicSize: 5.3
-    NearClipPlane: 0.1
-    FarClipPlane: 5000
-    Dutch: 0
-    <Orthographic>k__BackingField: 0
-    <Aspect>k__BackingField: 0
 --- !u!114 &822682500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1853,14 +1821,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473bc98c08048c34c9f9063ac7611986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustLensIdle:
-    FieldOfView: 0
-    OrthographicSize: 5.3
-    NearClipPlane: 0.1
-    FarClipPlane: 5000
-    Dutch: 0
-    <Orthographic>k__BackingField: 0
-    <Aspect>k__BackingField: 0
 --- !u!114 &936861685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2161,14 +2121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473bc98c08048c34c9f9063ac7611986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustLensIdle:
-    FieldOfView: 0
-    OrthographicSize: 5.3
-    NearClipPlane: 0.1
-    FarClipPlane: 5000
-    Dutch: 0
-    <Orthographic>k__BackingField: 0
-    <Aspect>k__BackingField: 0
 --- !u!114 &1253139391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2900,14 +2852,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473bc98c08048c34c9f9063ac7611986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustLensIdle:
-    FieldOfView: 0
-    OrthographicSize: 5.3
-    NearClipPlane: 0.1
-    FarClipPlane: 5000
-    Dutch: 0
-    <Orthographic>k__BackingField: 0
-    <Aspect>k__BackingField: 0
 --- !u!114 &1392487386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14280,7 +14224,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1461523388}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.7839994, y: 7.241, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 44753525}
@@ -14341,14 +14285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473bc98c08048c34c9f9063ac7611986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustLensIdle:
-    FieldOfView: 0
-    OrthographicSize: 5.3
-    NearClipPlane: 0.1
-    FarClipPlane: 5000
-    Dutch: 0
-    <Orthographic>k__BackingField: 0
-    <Aspect>k__BackingField: 0
 --- !u!4 &1482840487 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4834808700136142, guid: 7e1f923f49dc2b44996efe9827321989,
@@ -14489,14 +14425,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473bc98c08048c34c9f9063ac7611986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustLensIdle:
-    FieldOfView: 0
-    OrthographicSize: 5.3
-    NearClipPlane: 0.1
-    FarClipPlane: 5000
-    Dutch: 0
-    <Orthographic>k__BackingField: 0
-    <Aspect>k__BackingField: 0
 --- !u!114 &1600824211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14734,11 +14662,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4015692865364284, guid: d66962398c46c324385d66e51ca88e7a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -20.574
+      value: -15.79
       objectReference: {fileID: 0}
     - target: {fileID: 4015692865364284, guid: d66962398c46c324385d66e51ca88e7a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.451
+      value: 4.79
       objectReference: {fileID: 0}
     - target: {fileID: 4015692865364284, guid: d66962398c46c324385d66e51ca88e7a, type: 2}
       propertyPath: m_LocalPosition.z
@@ -19403,14 +19331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473bc98c08048c34c9f9063ac7611986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustLensIdle:
-    FieldOfView: 0
-    OrthographicSize: 5.3
-    NearClipPlane: 0.1
-    FarClipPlane: 5000
-    Dutch: 0
-    <Orthographic>k__BackingField: 0
-    <Aspect>k__BackingField: 0
 --- !u!114 &2047880644
 MonoBehaviour:
   m_ObjectHideFlags: 0

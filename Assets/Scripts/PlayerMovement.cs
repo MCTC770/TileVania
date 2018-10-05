@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour {
 	bool noJumpWhenFalling = true;
 	bool spawnedPlayerPickup = false;
 	bool enemyDefeated = false;
+	bool jumpCounterCountedUp = false;
 	int jumpCounter = 0;
 	Rigidbody2D characterRigidbody;
 	GameSession gameSession;
@@ -71,9 +72,13 @@ public class PlayerMovement : MonoBehaviour {
 	
 	void Update ()
 	{
+		CheckForPlayerDeath();
+	}
+
+	private void ChooseCamera()
+	{
 		for (var i = 0; i <= (virtualCameras.Length - 1); i++)
 		{
-			print("i: " + i + " maxJumps - 1: " + (maxJumps - 1));
 			if (i == (maxJumps - 1))
 			{
 				virtualCameras[i].SetActive(true);
@@ -83,8 +88,6 @@ public class PlayerMovement : MonoBehaviour {
 				virtualCameras[i].SetActive(false);
 			}
 		}
-
-		CheckForPlayerDeath();
 	}
 
 	private bool CheckRaycastHit(string directionCheck)
@@ -181,47 +184,6 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			characterAnimator.SetBool("Running", false);
 		}
-
-		/*if (maxJumps == 1)
-		{
-			virtualCameras[0].SetActive(true);
-			virtualCameras[1].SetActive(false);
-			virtualCamera3.SetActive(false);
-			virtualCamera4.SetActive(false);
-			virtualCamera5.SetActive(false);
-		}
-		else if (maxJumps == 2)
-		{
-			virtualCamera1.SetActive(false);
-			virtualCamera2.SetActive(true);
-			virtualCamera3.SetActive(false);
-			virtualCamera4.SetActive(false);
-			virtualCamera5.SetActive(false);
-		}
-		else if (maxJumps == 3)
-		{
-			virtualCamera1.SetActive(false);
-			virtualCamera2.SetActive(false);
-			virtualCamera3.SetActive(true);
-			virtualCamera4.SetActive(false);
-			virtualCamera5.SetActive(false);
-		}
-		else if (maxJumps == 4)
-		{
-			virtualCamera1.SetActive(false);
-			virtualCamera2.SetActive(false);
-			virtualCamera3.SetActive(false);
-			virtualCamera4.SetActive(true);
-			virtualCamera5.SetActive(false);
-		}
-		else if (maxJumps == 5)
-		{
-			virtualCamera1.SetActive(false);
-			virtualCamera2.SetActive(false);
-			virtualCamera3.SetActive(false);
-			virtualCamera4.SetActive(false);
-			virtualCamera5.SetActive(true);
-		}*/
 	}
 
 	private void CharacterTurningWhenWalking(float horizontalMovementInput)
@@ -265,10 +227,21 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
-		if (noJumpWhenFalling && !grounded) { }
+		print("jumpCounter: " + jumpCounter + " maxJumps: " + maxJumps);
+
+		if (noJumpWhenFalling && !grounded && !jumpCounterCountedUp) {
+			jumpCounter += 1;
+			jumpCounterCountedUp = true;
+			jumpInput = CrossPlatformInputManager.GetAxis("Jump");
+		}
 		else if ((canJump && grounded && jumpNotStarted) || (canJump && !grounded))
 		{
 			jumpInput = CrossPlatformInputManager.GetAxis("Jump");
+		}
+
+		if (grounded)
+		{
+			jumpCounterCountedUp = false;
 		}
 
 		float jumpHeightTimesInput = jumpHeight * jumpInput * (1f/60f); //Time.deltaTime;
@@ -466,7 +439,7 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			Destroy(collision.collider.gameObject);
 			maxJumps += 1;
-
+			ChooseCamera();
 			currentMaxJumps = maxJumps;
 		}
 
