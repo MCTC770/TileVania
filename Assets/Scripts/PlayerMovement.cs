@@ -310,7 +310,7 @@ public class PlayerMovement : MonoBehaviour {
 				}
 		}
 
-		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false)
+		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false && currentMaxJumps > 1)
 		{
 			Instantiate(playerPickups, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
 
