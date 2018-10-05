@@ -16,6 +16,7 @@ public class LevelExit : MonoBehaviour {
 	int starOne;
 	int starTwo;
 	int starThree;
+	bool addedStars = false;
 
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
@@ -31,6 +32,11 @@ public class LevelExit : MonoBehaviour {
 	private void WriteStarsInProgressTracker(int currentScene)
 	{
 		gameSession.starsTracking[currentScene - 1] = new int[] { starOne, starTwo, starThree };
+		if (addedStars == false)
+		{
+			gameSession.starsFromAllLevels += starOne + starTwo + starThree;
+			addedStars = true;
+		}
 	}
 
 	private void CalculateStarIntValue()

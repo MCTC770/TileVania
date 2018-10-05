@@ -9,12 +9,14 @@ public class GameSession : MonoBehaviour {
 	public int playerLives = 3;
 	public int starsCollected = 0;
 	public int[][] starsTracking;
+	public int starsFromAllLevels;
 
 	[SerializeField] Text livesText;
 	[SerializeField] Text scoreText;
 
 	int coinAmount = 0;
 	int totalStars;
+	bool updateTotalStarTracker = true;
 
 	private void Awake()
 	{
@@ -40,11 +42,7 @@ public class GameSession : MonoBehaviour {
 
 	private void Update()
 	{
-		print("starTracking[0]: " + starsTracking[0][0] + " " + starsTracking[0][1] + " " + starsTracking[0][2]);
-		print("starTracking[1]: " + starsTracking[1][0] + " " + starsTracking[1][1] + " " + starsTracking[1][2]);
-		print("starTracking[2]: " + starsTracking[2][0] + " " + starsTracking[2][1] + " " + starsTracking[2][2]);
-		print("starTracking[3]: " + starsTracking[3][0] + " " + starsTracking[3][1] + " " + starsTracking[3][2]);
-		print("starTracking[4]: " + starsTracking[4][0] + " " + starsTracking[4][1] + " " + starsTracking[4][2]);
+		print(starsFromAllLevels);
 		UpdateUITexts();
 	}
 
