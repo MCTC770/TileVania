@@ -34,14 +34,17 @@ public class GameSession : MonoBehaviour {
 		for (var i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
 		{
 			starsTracking[i] = new int[3] {0,0,0};
-			print("i: " + i + " starTracking[i] " + starsTracking[i][0] + " " + starsTracking[i][1] + " " + starsTracking[i][2]);
 		}
 		totalStars = FindObjectsOfType<StarPickup>().Length;
 	}
 
 	private void Update()
 	{
-		print("currentScene: " + SceneManager.GetActiveScene().buildIndex + " starTracking[currentScene]: " + starsTracking[SceneManager.GetActiveScene().buildIndex][0] + " " + starsTracking[SceneManager.GetActiveScene().buildIndex][1] + " " + starsTracking[SceneManager.GetActiveScene().buildIndex][2]);
+		print("starTracking[0]: " + starsTracking[0][0] + " " + starsTracking[0][1] + " " + starsTracking[0][2]);
+		print("starTracking[1]: " + starsTracking[1][0] + " " + starsTracking[1][1] + " " + starsTracking[1][2]);
+		print("starTracking[2]: " + starsTracking[2][0] + " " + starsTracking[2][1] + " " + starsTracking[2][2]);
+		print("starTracking[3]: " + starsTracking[3][0] + " " + starsTracking[3][1] + " " + starsTracking[3][2]);
+		print("starTracking[4]: " + starsTracking[4][0] + " " + starsTracking[4][1] + " " + starsTracking[4][2]);
 		UpdateUITexts();
 	}
 

@@ -17,14 +17,10 @@ public class LevelExit : MonoBehaviour {
 	int starTwo;
 	int starThree;
 
-	private void Start()
+	private void OnTriggerEnter2D(Collider2D collider)
 	{
 		gameSession = FindObjectOfType<GameSession>();
 		starCounter = FindObjectOfType<StarCounter>();
-	}
-
-	private void OnTriggerEnter2D(Collider2D collider)
-	{
 		int currentScene = SceneManager.GetActiveScene().buildIndex;
 
 		CalculateStarIntValue();
@@ -34,7 +30,7 @@ public class LevelExit : MonoBehaviour {
 
 	private void WriteStarsInProgressTracker(int currentScene)
 	{
-		gameSession.starsTracking[currentScene] = new int[] { starOne, starTwo, starThree };
+		gameSession.starsTracking[currentScene - 1] = new int[] { starOne, starTwo, starThree };
 	}
 
 	private void CalculateStarIntValue()
