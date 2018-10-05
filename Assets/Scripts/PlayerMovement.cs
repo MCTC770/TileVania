@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
 	[SerializeField] PlayerPickup playerPickups;
+	[SerializeField] GameObject[] virtualCameras;
 	[SerializeField] List<GameObject> playerList = new List<GameObject>();
 
 	float jumpInput = 0;
@@ -70,6 +71,19 @@ public class PlayerMovement : MonoBehaviour {
 	
 	void Update ()
 	{
+		for (var i = 0; i <= (virtualCameras.Length - 1); i++)
+		{
+			print("i: " + i + " maxJumps - 1: " + (maxJumps - 1));
+			if (i == (maxJumps - 1))
+			{
+				virtualCameras[i].SetActive(true);
+			}
+			else
+			{
+				virtualCameras[i].SetActive(false);
+			}
+		}
+
 		CheckForPlayerDeath();
 	}
 
@@ -167,6 +181,47 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			characterAnimator.SetBool("Running", false);
 		}
+
+		/*if (maxJumps == 1)
+		{
+			virtualCameras[0].SetActive(true);
+			virtualCameras[1].SetActive(false);
+			virtualCamera3.SetActive(false);
+			virtualCamera4.SetActive(false);
+			virtualCamera5.SetActive(false);
+		}
+		else if (maxJumps == 2)
+		{
+			virtualCamera1.SetActive(false);
+			virtualCamera2.SetActive(true);
+			virtualCamera3.SetActive(false);
+			virtualCamera4.SetActive(false);
+			virtualCamera5.SetActive(false);
+		}
+		else if (maxJumps == 3)
+		{
+			virtualCamera1.SetActive(false);
+			virtualCamera2.SetActive(false);
+			virtualCamera3.SetActive(true);
+			virtualCamera4.SetActive(false);
+			virtualCamera5.SetActive(false);
+		}
+		else if (maxJumps == 4)
+		{
+			virtualCamera1.SetActive(false);
+			virtualCamera2.SetActive(false);
+			virtualCamera3.SetActive(false);
+			virtualCamera4.SetActive(true);
+			virtualCamera5.SetActive(false);
+		}
+		else if (maxJumps == 5)
+		{
+			virtualCamera1.SetActive(false);
+			virtualCamera2.SetActive(false);
+			virtualCamera3.SetActive(false);
+			virtualCamera4.SetActive(false);
+			virtualCamera5.SetActive(true);
+		}*/
 	}
 
 	private void CharacterTurningWhenWalking(float horizontalMovementInput)
@@ -243,7 +298,7 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, 1f * jumpHeightTimesInput);
 			jumpTime += Time.deltaTime;
-			if (jumpTime >= maxJumpTime)
+			if (jumpTime >= (maxJumpTime * (Time.deltaTime * 60)))
 			{
 				canJump = false;
 				jumpInput = 0;
