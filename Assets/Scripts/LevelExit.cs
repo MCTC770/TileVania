@@ -5,18 +5,64 @@ using UnityEngine.SceneManagement;
 
 public class LevelExit : MonoBehaviour {
 
+	public bool loadingNextLevel = false;
+	public int[] starsInLevel;
+
 	[SerializeField] float delayUntilNextSceneLoad = 1.0f;
 	[SerializeField] float LevelExitSloMoFactor = 0.2f;
-	public bool loadingNextLevel = false;
+
+	GameSession gameSession;
+	StarCounter starCounter;
+	int starOne;
+	int starTwo;
+	int starThree;
 
 	private void Start()
 	{
-
+		gameSession = FindObjectOfType<GameSession>();
+		starCounter = FindObjectOfType<StarCounter>();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
+		int currentScene = SceneManager.GetActiveScene().buildIndex;
+
+		CalculateStarIntValue();
+		WriteStarsInProgressTracker(currentScene);
 		StartCoroutine(LoadNextScene());
+	}
+
+	private void WriteStarsInProgressTracker(int currentScene)
+	{
+		gameSession.starsTracking[currentScene] = new int[] { starOne, starTwo, starThree };
+	}
+
+	private void CalculateStarIntValue()
+	{
+		if (starCounter.firstStar == null)
+		{
+			starOne = 1;
+		}
+		else
+		{
+			starOne = 0;
+		}
+		if (starCounter.secondStar == null)
+		{
+			starTwo = 1;
+		}
+		else
+		{
+			starTwo = 0;
+		}
+		if (starCounter.thirdStar == null)
+		{
+			starThree = 1;
+		}
+		else
+		{
+			starThree = 0;
+		}
 	}
 
 	IEnumerator LoadNextScene()

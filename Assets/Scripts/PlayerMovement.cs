@@ -227,8 +227,6 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
-		print("jumpCounter: " + jumpCounter + " maxJumps: " + maxJumps);
-
 		if (noJumpWhenFalling && !grounded && !jumpCounterCountedUp) {
 			jumpCounter += 1;
 			jumpCounterCountedUp = true;
@@ -290,6 +288,7 @@ public class PlayerMovement : MonoBehaviour {
 			jumpCounter = 0;
 			noJumpWhenFalling = true;
 			maxJumps = currentMaxJumps;
+			ChooseCamera();
 			if (maxJumps >= 2)
 			{
 				for(var i = 0; i <= maxJumps; i++)

@@ -8,6 +8,7 @@ public class GameSession : MonoBehaviour {
 
 	public int playerLives = 3;
 	public int starsCollected = 0;
+	public int[][] starsTracking;
 
 	[SerializeField] Text livesText;
 	[SerializeField] Text scoreText;
@@ -29,11 +30,18 @@ public class GameSession : MonoBehaviour {
 	}
 
 	void Start () {
+		starsTracking = new int[SceneManager.sceneCountInBuildSettings][];
+		for (var i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+		{
+			starsTracking[i] = new int[3] {0,0,0};
+			print("i: " + i + " starTracking[i] " + starsTracking[i][0] + " " + starsTracking[i][1] + " " + starsTracking[i][2]);
+		}
 		totalStars = FindObjectsOfType<StarPickup>().Length;
 	}
 
 	private void Update()
 	{
+		print("currentScene: " + SceneManager.GetActiveScene().buildIndex + " starTracking[currentScene]: " + starsTracking[SceneManager.GetActiveScene().buildIndex][0] + " " + starsTracking[SceneManager.GetActiveScene().buildIndex][1] + " " + starsTracking[SceneManager.GetActiveScene().buildIndex][2]);
 		UpdateUITexts();
 	}
 

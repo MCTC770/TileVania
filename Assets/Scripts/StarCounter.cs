@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class StarCounter : MonoBehaviour {
 
 	[SerializeField] Image firstStarUI;
-	GameObject firstStar;
+	public GameObject firstStar;
 	[SerializeField] Image secondStarUI;
-	GameObject secondStar;
+	public GameObject secondStar;
 	[SerializeField] Image thirdStarUI;
-	GameObject thirdStar;
+	public GameObject thirdStar;
 	[SerializeField] Image fullStar;
 
 	private void Update()
