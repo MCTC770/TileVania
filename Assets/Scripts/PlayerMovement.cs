@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
 	[SerializeField] PlayerPickup playerPickups;
+	[SerializeField] GameObject playerDying;
 	[SerializeField] GameObject[] virtualCameras;
 	[SerializeField] List<GameObject> playerList = new List<GameObject>();
 
@@ -123,15 +124,35 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		else
 		{
-			playerCollider.enabled = false;
-			characterRigidbody.gravityScale = 1f;
-			characterRigidbody.velocity = Vector2.up * deathAnimationUplift;
-			Invoke("DeathFall", invokeDeathFall);
+			if (currentMaxJumps > 1)
+			{
+				currentMaxJumps -= 1;
 
-			characterAnimator.SetBool("Climbing", false);
-			characterAnimator.SetBool("Running", false);
-			characterAnimator.SetBool("Dying", true);
-			Invoke("LoseALive", deathSequenceTime);
+				for (var i = playerList.Count; i >= currentMaxJumps; i--)
+				{
+					if (i - 1 > currentMaxJumps - 1)
+					{
+						playerList[i - 2].SetActive(false);
+					}
+				}
+
+				Instantiate(playerDying, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+				playerDeath = false;
+			}
+			else
+			{
+				GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
+				GetComponent<CapsuleCollider2D>().enabled = false;
+				GetComponent<Rigidbody2D>().gravityScale = 1f;
+				GetComponent<Rigidbody2D>().velocity = Vector2.up * deathAnimationUplift;
+
+				characterAnimator.SetBool("Running", false);
+				characterAnimator.SetBool("Climbing", false);
+				characterAnimator.SetBool("Dying", true);
+
+				Invoke("DeathFall", invokeDeathFall);
+				Invoke("LoseALive", deathSequenceTime);
+			}
 		}
 	}
 
@@ -139,11 +160,12 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		gameSession.playerLives -= 1;
 		gameSession.ProcessPlayerDeath();
+		Destroy(gameObject);
 	}
 
 	private void DeathFall()
 	{
-		characterRigidbody.gravityScale = deathGravity;
+		GetComponent<Rigidbody2D>().gravityScale = deathGravity;
 	}
 
 	void ControllerInputHandler()
@@ -405,11 +427,6 @@ public class PlayerMovement : MonoBehaviour {
 			jumpTime = 0;
 			canJump = true;
 			grounded = true;
-		}
-
-		if (collider.gameObject.layer == playerPickupsLayer)
-		{
-			//transform.position = new Vector2(transform.position.x, transform.position.y + 0.3f);
 		}
 
 		if (collider.gameObject.layer == enemyLayer && !collider.isTrigger)

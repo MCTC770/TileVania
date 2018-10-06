@@ -113,11 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &41169165 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1385265267518922, guid: 8f82a706e85665341b68bd708a674aee,
-    type: 2}
-  m_PrefabInternal: {fileID: 955922472}
 --- !u!1 &75226656
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,6 +465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLives: 3
   starsCollected: 0
+  starsFromAllLevels: 0
   livesText: {fileID: 104149235}
   scoreText: {fileID: 75226657}
 --- !u!4 &188873203
@@ -575,11 +571,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e1f923f49dc2b44996efe9827321989, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &324870887 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1495036075905206, guid: 8f82a706e85665341b68bd708a674aee,
-    type: 2}
-  m_PrefabInternal: {fileID: 955922472}
 --- !u!4 &421657270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4015692865364284, guid: d66962398c46c324385d66e51ca88e7a,
@@ -778,11 +769,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4834808700136142, guid: 7e1f923f49dc2b44996efe9827321989,
     type: 2}
   m_PrefabInternal: {fileID: 786852224}
---- !u!1 &666832383 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1452183327470428, guid: 8f82a706e85665341b68bd708a674aee,
-    type: 2}
-  m_PrefabInternal: {fileID: 955922472}
 --- !u!1001 &786852224
 Prefab:
   m_ObjectHideFlags: 0
@@ -890,11 +876,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &822682498 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1356863272409810, guid: 8f82a706e85665341b68bd708a674aee,
-    type: 2}
-  m_PrefabInternal: {fileID: 955922472}
 --- !u!1 &895550167
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,11 +945,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 895550167}
   m_CullTransparentMesh: 0
---- !u!1 &936861683 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1628622678402680, guid: 8f82a706e85665341b68bd708a674aee,
-    type: 2}
-  m_PrefabInternal: {fileID: 955922472}
 --- !u!1001 &947083940
 Prefab:
   m_ObjectHideFlags: 0
@@ -1291,11 +1267,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e434b09fd64173740b39afda9752f80e, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1253139389 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1020786215011176, guid: 8f82a706e85665341b68bd708a674aee,
-    type: 2}
-  m_PrefabInternal: {fileID: 955922472}
 --- !u!1 &1269645778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1758,11 +1729,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8069707a6aa8b1147bdcd9bb75e3a4b2, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1392487383 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1552579566795422, guid: 8f82a706e85665341b68bd708a674aee,
-    type: 2}
-  m_PrefabInternal: {fileID: 955922472}
 --- !u!1 &1427960017
 GameObject:
   m_ObjectHideFlags: 0
@@ -13065,11 +13031,6 @@ PolygonCollider2D:
       - {x: -23.985348, y: -6.00455}
       - {x: 29.001057, y: -5.9862747}
       - {x: 29.035059, y: 17.00966}
---- !u!1 &1461523388 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1172316235092866, guid: 8f82a706e85665341b68bd708a674aee,
-    type: 2}
-  m_PrefabInternal: {fileID: 955922472}
 --- !u!4 &1482840487 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4834808700136142, guid: 7e1f923f49dc2b44996efe9827321989,
@@ -13180,11 +13141,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1600824209 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1713304087700552, guid: 8f82a706e85665341b68bd708a674aee,
-    type: 2}
-  m_PrefabInternal: {fileID: 955922472}
 --- !u!4 &1681234352 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4834808700136142, guid: 7e1f923f49dc2b44996efe9827321989,
@@ -13315,52 +13271,52 @@ Prefab:
         type: 2}
       propertyPath: virtualCameras.Array.data[0]
       value: 
-      objectReference: {fileID: 1461523388}
+      objectReference: {fileID: 0}
     - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
         type: 2}
       propertyPath: virtualCameras.Array.data[1]
       value: 
-      objectReference: {fileID: 822682498}
+      objectReference: {fileID: 0}
     - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
         type: 2}
       propertyPath: virtualCameras.Array.data[2]
       value: 
-      objectReference: {fileID: 1600824209}
+      objectReference: {fileID: 0}
     - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
         type: 2}
       propertyPath: virtualCameras.Array.data[3]
       value: 
-      objectReference: {fileID: 1253139389}
+      objectReference: {fileID: 0}
     - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
         type: 2}
       propertyPath: virtualCameras.Array.data[4]
       value: 
-      objectReference: {fileID: 1392487383}
+      objectReference: {fileID: 0}
     - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
         type: 2}
       propertyPath: virtualCameras.Array.data[5]
       value: 
-      objectReference: {fileID: 41169165}
+      objectReference: {fileID: 0}
     - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
         type: 2}
       propertyPath: virtualCameras.Array.data[6]
       value: 
-      objectReference: {fileID: 324870887}
+      objectReference: {fileID: 0}
     - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
         type: 2}
       propertyPath: virtualCameras.Array.data[7]
       value: 
-      objectReference: {fileID: 936861683}
+      objectReference: {fileID: 0}
     - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
         type: 2}
       propertyPath: virtualCameras.Array.data[8]
       value: 
-      objectReference: {fileID: 2047880642}
+      objectReference: {fileID: 0}
     - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
         type: 2}
       propertyPath: virtualCameras.Array.data[9]
       value: 
-      objectReference: {fileID: 666832383}
+      objectReference: {fileID: 0}
     - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
         type: 2}
       propertyPath: virtualCameras.Array.data[10]
@@ -17701,11 +17657,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4834808700136142, guid: 7e1f923f49dc2b44996efe9827321989,
     type: 2}
   m_PrefabInternal: {fileID: 787698999}
---- !u!1 &2047880642 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1132917900411570, guid: 8f82a706e85665341b68bd708a674aee,
-    type: 2}
-  m_PrefabInternal: {fileID: 955922472}
 --- !u!4 &2090846846
 Transform:
   m_ObjectHideFlags: 0
