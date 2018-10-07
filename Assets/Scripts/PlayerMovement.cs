@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour {
 	LayerMask enemyLayer = 13;
 	LayerMask ladderLayer = 10;
 	LayerMask foregroundLayer = 9;
+	Collider2D localPlayerDeath;
 	CircleCollider2D PlayerFeetTrigger;
 	RaycastHit2D checkPlayerPickupRaycastHit;
 
@@ -118,6 +119,16 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void CheckForPlayerDeath()
 	{
+		localPlayerDeath = GetComponent<CapsuleCollider2D>();
+
+		for (var i = 0; i <= playerList.Count - 1; i++)
+		{
+			if (playerList[i].GetComponent<AdditionalPlayer>().additionalPlayerCollided != null)
+			{
+				localPlayerDeath = playerList[i].GetComponent<AdditionalPlayer>().additionalPlayerCollided;
+			}
+		}
+
 		if (playerDeath == false)
 		{
 			ControllerInputHandler();
@@ -136,7 +147,8 @@ public class PlayerMovement : MonoBehaviour {
 					}
 				}
 
-				Instantiate(playerDying, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+				Instantiate(playerDying, new Vector2(localPlayerDeath.transform.position.x, localPlayerDeath.transform.position.y), Quaternion.identity);
+				localPlayerDeath = null;
 				playerDeath = false;
 			}
 			else

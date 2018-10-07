@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AdditionalPlayer : MonoBehaviour {
 
+	public Collider2D additionalPlayerCollided;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -12,5 +14,10 @@ public class AdditionalPlayer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		additionalPlayerCollided = collision.otherCollider;
 	}
 }
