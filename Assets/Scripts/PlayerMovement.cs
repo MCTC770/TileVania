@@ -147,7 +147,8 @@ public class PlayerMovement : MonoBehaviour {
 					}
 				}
 
-				Instantiate(playerDying, new Vector2(localPlayerDeath.transform.position.x, localPlayerDeath.transform.position.y), Quaternion.identity);
+				var dyingPlayer = Instantiate(playerDying, new Vector2(localPlayerDeath.transform.position.x, localPlayerDeath.transform.position.y), Quaternion.identity);
+				dyingPlayer.transform.parent = transform;
 				localPlayerDeath = null;
 				playerDeath = false;
 			}
@@ -345,7 +346,8 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false && currentMaxJumps > 1)
 		{
-			Instantiate(playerPickups, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
+			var newPlayerPickup = Instantiate(playerPickups, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
+			newPlayerPickup.transform.parent = GameObject.Find("PlayerPickupCollector").transform;
 
 			currentMaxJumps -= 1;
 
