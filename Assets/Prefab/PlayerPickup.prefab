@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50261033140570994}
   - component: {fileID: 70791050903798460}
   - component: {fileID: 114442515836695266}
+  - component: {fileID: 58768577253431222}
   m_Layer: 18
   m_Name: PlayerPickup
   m_TagString: Untagged
@@ -63,6 +64,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!58 &58768577253431222
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1497258086810926}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0117610395, y: -0.30344903}
+  serializedVersion: 2
+  m_Radius: 0.2224258
 --- !u!70 &70791050903798460
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -89,6 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 705871822de92e946b36b37313665804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDeath: {fileID: 114507253990850204, guid: c42f28bf6851d404982dfeff228f18c4,
+    type: 2}
 --- !u!212 &212097773955736782
 SpriteRenderer:
   m_ObjectHideFlags: 1

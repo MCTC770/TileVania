@@ -247,8 +247,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1763779761074678}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.24, y: -2.2, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -15.79, y: 4.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4021676634546260}
@@ -898,8 +898,7 @@ MonoBehaviour:
   playerCollider: {fileID: 70896447067235920}
   playerPickups: {fileID: 114442515836695266, guid: 174d881d80a791a4983fb55019932669,
     type: 2}
-  playerDying: {fileID: 1350931095133464, guid: c42f28bf6851d404982dfeff228f18c4,
-    type: 2}
+  playerDying: {fileID: 0}
   virtualCameras:
   - {fileID: 0}
   - {fileID: 0}
