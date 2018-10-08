@@ -18803,6 +18803,26 @@ Prefab:
       value: 
       objectReference: {fileID: 1350931095133464, guid: c42f28bf6851d404982dfeff228f18c4,
         type: 2}
+    - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
+        type: 2}
+      propertyPath: playerBlinkingMin
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
+        type: 2}
+      propertyPath: playerBlinkingMax
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
+        type: 2}
+      propertyPath: playerBlinkingAdjust
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 114314794279833322, guid: d66962398c46c324385d66e51ca88e7a,
+        type: 2}
+      propertyPath: playerBlinkingDuration
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d66962398c46c324385d66e51ca88e7a, type: 2}
   m_IsPrefabAsset: 0

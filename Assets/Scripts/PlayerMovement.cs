@@ -172,7 +172,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		else
 		{
-			if (currentMaxJumps > 1)
+			if (currentMaxJumps > 1 && !playerInvulnerable)
 			{
 				currentMaxJumps -= 1;
 
@@ -389,7 +389,7 @@ public class PlayerMovement : MonoBehaviour {
 				}
 		}
 
-		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false && currentMaxJumps > 1)
+		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false && currentMaxJumps > 1 && !playerInvulnerable)
 		{
 			var newPlayerPickup = Instantiate(playerPickups, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
 			newPlayerPickup.transform.parent = GameObject.Find("PlayerPickupCollector").transform;
