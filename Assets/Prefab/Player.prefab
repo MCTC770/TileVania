@@ -892,7 +892,7 @@ MonoBehaviour:
   playerBlinkingMin: 0.2
   playerBlinkingMax: 0.7
   playerBlinkingAdjust: 0.03
-  playerBlinkingDuration: 1
+  playerBlinkingDuration: 1.2
   maxJumps: 1
   currentMaxJumps: 1
   layer:
