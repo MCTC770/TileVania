@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float deathSequenceTime = 0.8f;
 	[SerializeField] float raycastLength = 1.246f;
 	[SerializeField] float raycastLengthAddValue = 0.9f;
+	[SerializeField] float raycastLengthAddValueJumpBounce = 0.6f;
 	[SerializeField] float playerBlinkingMin = 0.25f;
 	[SerializeField] float playerBlinkingMax = 0.75f;
 	[SerializeField] float playerBlinkingAdjust = 0.025f;
@@ -82,6 +83,7 @@ public class PlayerMovement : MonoBehaviour {
 	
 	void Update ()
 	{
+		CheckRaycastHit("topMultiplePlayer");
 		if (playerInvulnerable)
 		{
 			PlayerBlinking();
@@ -162,22 +164,33 @@ public class PlayerMovement : MonoBehaviour {
 
 	private bool CheckRaycastHit(string directionCheck)
 	{
-		if (directionCheck == "top")
+		Vector2 direction = new Vector2(0,0);
+		float baseValue = 0.38f;
+		if (directionCheck == "checkForNextPlayer")
 		{
-			Vector2 position = transform.position;
-			Vector2 direction = Vector2.up * (raycastLength + (raycastLengthAddValue * (maxJumps - 1)));
-			float distance = direction.y;
+			direction = Vector2.up * (raycastLength + (raycastLengthAddValue * (maxJumps - 1)));
+		}
+		else if (directionCheck == "topOnePlayer")
+		{
+			direction = Vector2.up * baseValue;
+		}
+		else if (directionCheck == "topMultiplePlayer")
+		{
+			direction = Vector2.up * (baseValue + ((raycastLengthAddValueJumpBounce * (currentMaxJumps - 1)) - ((currentMaxJumps - 1) * 0.01f)));
+		}
+		else
+		{
+			return false;
+		}
 
-			Debug.DrawRay(position, direction, Color.green);
+		Vector2 position = transform.position;
+		float distance = direction.y;
 
-			if (Physics2D.Raycast(position, direction, distance, layer))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+		Debug.DrawRay(position, direction, Color.green);
+
+		if (Physics2D.Raycast(position, direction, distance, layer))
+		{
+			return true;
 		}
 		else
 		{
@@ -393,7 +406,7 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, jumpHeightTimesInput);
 			jumpTime += Time.deltaTime;
-			if (jumpTime >= maxJumpTime)
+			if (jumpTime >= maxJumpTime || (CheckRaycastHit("topOnePlayer") && currentMaxJumps <= 1) || (CheckRaycastHit("topMultiplePlayer") && currentMaxJumps > 1))
 			{
 				canJump = false;
 				jumpInput = 0;
@@ -572,7 +585,7 @@ public class PlayerMovement : MonoBehaviour {
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		print(collision.otherCollider);
-		if (collision.collider.gameObject.layer == playerPickupsLayer && grounded && maxJumps < 10 && !CheckRaycastHit("top"))
+		if (collision.collider.gameObject.layer == playerPickupsLayer && grounded && maxJumps < 10 && !CheckRaycastHit("checkForNextPlayer"))
 		{
 			Destroy(collision.collider.gameObject);
 			maxJumps += 1;
