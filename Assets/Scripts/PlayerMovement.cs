@@ -51,10 +51,12 @@ public class PlayerMovement : MonoBehaviour {
 	bool climbAvailable = false;
 	bool noJumpWhenFalling = true;
 	bool spawnedPlayerPickup = false;
+	bool enterLosePlayer = false;
 	bool enemyDefeated = false;
 	bool jumpCounterCountedUp = false;
 	bool gammaStateMin = false;
 	bool playerInvulnerable = false;
+	bool resetCollider = false;
 	int jumpCounter = 0;
 	Rigidbody2D characterRigidbody;
 	GameSession gameSession;
@@ -86,6 +88,12 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		else
 		{
+			if (resetCollider)
+			{
+				playerCollider.enabled = false;
+				playerCollider.enabled = true;
+				resetCollider = false;
+			}
 			SpriteRenderer playerSpriteRenderer = GetComponent<SpriteRenderer>();
 			playerSpriteRenderer.color = new Color(playerSpriteRenderer.color.r, playerSpriteRenderer.color.g, playerSpriteRenderer.color.b, 1f);
 		}
@@ -156,22 +164,23 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void CheckForPlayerDeath()
 	{
-		localPlayerDeath = GetComponent<CapsuleCollider2D>();
-
-		for (var i = 0; i <= playerList.Count - 1; i++)
-		{
-			if (playerList[i].GetComponent<AdditionalPlayer>().additionalPlayerCollided != null)
-			{
-				localPlayerDeath = playerList[i].GetComponent<AdditionalPlayer>().additionalPlayerCollided;
-			}
-		}
-
 		if (playerDeath == false)
 		{
 			ControllerInputHandler();
 		}
-		else
+		else if (!spawnedPlayerPickup)
 		{
+			enterLosePlayer = true;
+			localPlayerDeath = GetComponent<CapsuleCollider2D>();
+
+			for (var i = 0; i <= playerList.Count - 1; i++)
+			{
+				if (playerList[i].GetComponent<AdditionalPlayer>().additionalPlayerCollided != null)
+				{
+					localPlayerDeath = playerList[i].GetComponent<AdditionalPlayer>().additionalPlayerCollided;
+				}
+			}
+
 			if (currentMaxJumps > 1 && !playerInvulnerable)
 			{
 				currentMaxJumps -= 1;
@@ -185,12 +194,12 @@ public class PlayerMovement : MonoBehaviour {
 				}
 
 				var dyingPlayer = Instantiate(playerDying, new Vector2(localPlayerDeath.transform.position.x, localPlayerDeath.transform.position.y), Quaternion.identity);
-				dyingPlayer.transform.parent = transform;
+				dyingPlayer.transform.parent = GameObject.Find("PlayerPickupCollector").transform;
 				localPlayerDeath = null;
 				playerDeath = false;
 				StartCoroutine(PlayerBlinkingTime());
 			}
-			else
+			else if (!playerInvulnerable)
 			{
 				GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
 				GetComponent<CapsuleCollider2D>().enabled = false;
@@ -211,7 +220,9 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		playerInvulnerable = true;
 		yield return new WaitForSeconds(playerBlinkingDuration);
+		enterLosePlayer = false;
 		playerInvulnerable = false;
+		resetCollider = true;
 	}
 
 	private void LoseALive()
@@ -322,7 +333,7 @@ public class PlayerMovement : MonoBehaviour {
 			jumpCounterCountedUp = false;
 		}
 
-		float jumpHeightTimesInput = jumpHeight * jumpInput * (1f/60f); //Time.deltaTime;
+		float jumpHeightTimesInput = jumpHeight * jumpInput * Time.deltaTime;
 
 		CheckForHoldedJumpButton();
 		DoJump(jumpHeightTimesInput);
@@ -347,9 +358,9 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (jumpInput == 1f && jumpCounter < maxJumps)
 		{
-			characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, 1f * jumpHeightTimesInput);
+			characterRigidbody.velocity = new Vector2(characterRigidbody.velocity.x, jumpHeightTimesInput);
 			jumpTime += Time.deltaTime;
-			if (jumpTime >= (maxJumpTime * (Time.deltaTime * 60)))
+			if (jumpTime >= maxJumpTime)
 			{
 				canJump = false;
 				jumpInput = 0;
@@ -389,8 +400,11 @@ public class PlayerMovement : MonoBehaviour {
 				}
 		}
 
-		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false && currentMaxJumps > 1 && !playerInvulnerable)
+		// here is the problem
+		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false && currentMaxJumps > 1 && !enterLosePlayer)
 		{
+			spawnedPlayerPickup = true;
+
 			var newPlayerPickup = Instantiate(playerPickups, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
 			newPlayerPickup.transform.parent = GameObject.Find("PlayerPickupCollector").transform;
 
@@ -401,7 +415,11 @@ public class PlayerMovement : MonoBehaviour {
 				currentMaxJumps = 1;
 			}
 
-			spawnedPlayerPickup = true;
+			// dirty hotfix-ish
+			/*if (playerInvulnerable)
+			{
+				currentMaxJumps += 1;
+			}*/
 
 			for (var i = playerList.Count; i >= currentMaxJumps; i--)
 			{
@@ -412,7 +430,7 @@ public class PlayerMovement : MonoBehaviour {
 				else { }
 			}
 		}
-		else if (jumpInput == 0f && jumpCounter > 0 && spawnedPlayerPickup == true)
+		else if (jumpInput == 0f && jumpCounter > 0 && spawnedPlayerPickup == true && !playerInvulnerable)
 		{
 			spawnedPlayerPickup = false;
 		}
@@ -510,6 +528,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
+		print(collision.otherCollider);
 		if (collision.collider.gameObject.layer == playerPickupsLayer && grounded && maxJumps < 10 && !CheckRaycastHit("top"))
 		{
 			Destroy(collision.collider.gameObject);
