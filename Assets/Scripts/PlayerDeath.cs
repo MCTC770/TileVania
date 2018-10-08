@@ -23,14 +23,13 @@ public class PlayerDeath : MonoBehaviour {
 		Invoke("LoseALive", deathSequenceTime);
 	}
 
-	private void LoseALive()
-	{
-		gameSession.playerLives -= 1;
-		Destroy(gameObject);
-	}
-
 	private void DeathFall()
 	{
 		GetComponent<Rigidbody2D>().gravityScale = deathGravity;
+	}
+
+	private void LoseALive()
+	{
+		Destroy(gameObject);
 	}
 }

@@ -25,6 +25,10 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float deathSequenceTime = 0.8f;
 	[SerializeField] float raycastLength = 1.246f;
 	[SerializeField] float raycastLengthAddValue = 0.9f;
+	[SerializeField] float playerBlinkingMin = 0.25f;
+	[SerializeField] float playerBlinkingMax = 0.75f;
+	[SerializeField] float playerBlinkingAdjust = 0.025f;
+	[SerializeField] float playerBlinkingDuration = 3f;
 	[SerializeField] int maxJumps = 1;
 	[SerializeField] int currentMaxJumps;
 	[SerializeField] LayerMask layer;
@@ -49,6 +53,8 @@ public class PlayerMovement : MonoBehaviour {
 	bool spawnedPlayerPickup = false;
 	bool enemyDefeated = false;
 	bool jumpCounterCountedUp = false;
+	bool gammaStateMin = false;
+	bool playerInvulnerable = false;
 	int jumpCounter = 0;
 	Rigidbody2D characterRigidbody;
 	GameSession gameSession;
@@ -74,7 +80,38 @@ public class PlayerMovement : MonoBehaviour {
 	
 	void Update ()
 	{
+		if (playerInvulnerable)
+		{
+			PlayerBlinking();
+		}
+		else
+		{
+			SpriteRenderer playerSpriteRenderer = GetComponent<SpriteRenderer>();
+			playerSpriteRenderer.color = new Color(playerSpriteRenderer.color.r, playerSpriteRenderer.color.g, playerSpriteRenderer.color.b, 1f);
+		}
 		CheckForPlayerDeath();
+	}
+
+	private void PlayerBlinking()
+	{
+		SpriteRenderer playerSpriteRenderer = GetComponent<SpriteRenderer>();
+		if (playerSpriteRenderer.color.a <= playerBlinkingMin)
+		{
+			gammaStateMin = true;
+		}
+		else if (playerSpriteRenderer.color.a >= playerBlinkingMax)
+		{
+			gammaStateMin = false;
+		}
+
+		if (gammaStateMin == true)
+		{
+			playerSpriteRenderer.color = new Color(playerSpriteRenderer.color.r, playerSpriteRenderer.color.g, playerSpriteRenderer.color.b, playerSpriteRenderer.color.a + playerBlinkingAdjust);
+		}
+		else if (gammaStateMin == false)
+		{
+			playerSpriteRenderer.color = new Color(playerSpriteRenderer.color.r, playerSpriteRenderer.color.g, playerSpriteRenderer.color.b, playerSpriteRenderer.color.a - playerBlinkingAdjust);
+		}
 	}
 
 	private void ChooseCamera()
@@ -151,6 +188,7 @@ public class PlayerMovement : MonoBehaviour {
 				dyingPlayer.transform.parent = transform;
 				localPlayerDeath = null;
 				playerDeath = false;
+				StartCoroutine(PlayerBlinkingTime());
 			}
 			else
 			{
@@ -167,6 +205,13 @@ public class PlayerMovement : MonoBehaviour {
 				Invoke("LoseALive", deathSequenceTime);
 			}
 		}
+	}
+
+	IEnumerator PlayerBlinkingTime()
+	{
+		playerInvulnerable = true;
+		yield return new WaitForSeconds(playerBlinkingDuration);
+		playerInvulnerable = false;
 	}
 
 	private void LoseALive()
@@ -473,12 +518,12 @@ public class PlayerMovement : MonoBehaviour {
 			currentMaxJumps = maxJumps;
 		}
 
-		if (collision.collider.gameObject.layer == enemyLayer && !enemyDefeated)
+		if (collision.collider.gameObject.layer == enemyLayer && !enemyDefeated && !playerInvulnerable)
 		{
 			playerDeath = true;
 		}
 
-		if (collision.collider.gameObject.layer == hazardLayer)
+		if (collision.collider.gameObject.layer == hazardLayer && !playerInvulnerable)
 		{
 			playerDeath = true;
 		}
