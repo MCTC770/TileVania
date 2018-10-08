@@ -96,6 +96,13 @@ public class PlayerMovement : MonoBehaviour {
 			}
 			SpriteRenderer playerSpriteRenderer = GetComponent<SpriteRenderer>();
 			playerSpriteRenderer.color = new Color(playerSpriteRenderer.color.r, playerSpriteRenderer.color.g, playerSpriteRenderer.color.b, 1f);
+			for (var i = 0; i <= playerList.Count - 1; i++)
+			{
+				if (playerList[i].activeSelf)
+				{
+					playerList[i].GetComponent<SpriteRenderer>().color = new Color(playerList[i].GetComponent<SpriteRenderer>().color.r, playerList[i].GetComponent<SpriteRenderer>().color.g, playerList[i].GetComponent<SpriteRenderer>().color.b, 1f);
+				}
+			}
 		}
 		CheckForPlayerDeath();
 	}
@@ -115,10 +122,26 @@ public class PlayerMovement : MonoBehaviour {
 		if (gammaStateMin == true)
 		{
 			playerSpriteRenderer.color = new Color(playerSpriteRenderer.color.r, playerSpriteRenderer.color.g, playerSpriteRenderer.color.b, playerSpriteRenderer.color.a + playerBlinkingAdjust);
+
+			for (var i = 0; i <= playerList.Count - 1; i++)
+			{
+				if (playerList[i].activeSelf)
+				{
+					playerList[i].GetComponent<SpriteRenderer>().color = new Color(playerList[i].GetComponent<SpriteRenderer>().color.r, playerList[i].GetComponent<SpriteRenderer>().color.g, playerList[i].GetComponent<SpriteRenderer>().color.b, playerList[i].GetComponent<SpriteRenderer>().color.a + playerBlinkingAdjust);
+				}
+			}
 		}
 		else if (gammaStateMin == false)
 		{
 			playerSpriteRenderer.color = new Color(playerSpriteRenderer.color.r, playerSpriteRenderer.color.g, playerSpriteRenderer.color.b, playerSpriteRenderer.color.a - playerBlinkingAdjust);
+
+			for (var i = 0; i <= playerList.Count - 1; i++)
+			{
+				if (playerList[i].activeSelf)
+				{
+					playerList[i].GetComponent<SpriteRenderer>().color = new Color(playerList[i].GetComponent<SpriteRenderer>().color.r, playerList[i].GetComponent<SpriteRenderer>().color.g, playerList[i].GetComponent<SpriteRenderer>().color.b, playerList[i].GetComponent<SpriteRenderer>().color.a - playerBlinkingAdjust);
+				}
+			}
 		}
 	}
 
@@ -183,37 +206,47 @@ public class PlayerMovement : MonoBehaviour {
 
 			if (currentMaxJumps > 1 && !playerInvulnerable)
 			{
-				currentMaxJumps -= 1;
-
-				for (var i = playerList.Count; i >= currentMaxJumps; i--)
-				{
-					if (i - 1 > currentMaxJumps - 1)
-					{
-						playerList[i - 2].SetActive(false);
-					}
-				}
-
-				var dyingPlayer = Instantiate(playerDying, new Vector2(localPlayerDeath.transform.position.x, localPlayerDeath.transform.position.y), Quaternion.identity);
-				dyingPlayer.transform.parent = GameObject.Find("PlayerPickupCollector").transform;
-				localPlayerDeath = null;
-				playerDeath = false;
-				StartCoroutine(PlayerBlinkingTime());
+				LoseAPlayer();
 			}
 			else if (!playerInvulnerable)
 			{
-				GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
-				GetComponent<CapsuleCollider2D>().enabled = false;
-				GetComponent<Rigidbody2D>().gravityScale = 1f;
-				GetComponent<Rigidbody2D>().velocity = Vector2.up * deathAnimationUplift;
-
-				characterAnimator.SetBool("Running", false);
-				characterAnimator.SetBool("Climbing", false);
-				characterAnimator.SetBool("Dying", true);
-
-				Invoke("DeathFall", invokeDeathFall);
-				Invoke("LoseALive", deathSequenceTime);
+				Die();
 			}
 		}
+	}
+
+	private void LoseAPlayer()
+	{
+		currentMaxJumps -= 1;
+
+		for (var i = playerList.Count; i >= currentMaxJumps; i--)
+		{
+			if (i - 1 > currentMaxJumps - 1)
+			{
+				playerList[i - 2].SetActive(false);
+			}
+		}
+
+		var dyingPlayer = Instantiate(playerDying, new Vector2(localPlayerDeath.transform.position.x, localPlayerDeath.transform.position.y), Quaternion.identity);
+		dyingPlayer.transform.parent = GameObject.Find("PlayerPickupCollector").transform;
+		localPlayerDeath = null;
+		playerDeath = false;
+		StartCoroutine(PlayerBlinkingTime());
+	}
+
+	private void Die()
+	{
+		GetComponent<SpriteRenderer>().sortingLayerName = "Foreground";
+		GetComponent<CapsuleCollider2D>().enabled = false;
+		GetComponent<Rigidbody2D>().gravityScale = 1f;
+		GetComponent<Rigidbody2D>().velocity = Vector2.up * deathAnimationUplift;
+
+		characterAnimator.SetBool("Running", false);
+		characterAnimator.SetBool("Climbing", false);
+		characterAnimator.SetBool("Dying", true);
+
+		Invoke("DeathFall", invokeDeathFall);
+		Invoke("LoseALive", deathSequenceTime);
 	}
 
 	IEnumerator PlayerBlinkingTime()
