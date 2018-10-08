@@ -539,6 +539,11 @@ public class PlayerMovement : MonoBehaviour {
 			grounded = true;
 		}
 
+		if (collider.gameObject.layer == hazardLayer)
+		{
+			grounded = true;
+		}
+
 		if (collider.gameObject.layer == enemyLayer && !collider.isTrigger)
 		{
 			Destroy(collider.gameObject);
@@ -554,6 +559,11 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (collider.gameObject.layer == foregroundLayer)
+		{
+			grounded = false;
+		}
+
+		if (collider.gameObject.layer == hazardLayer)
 		{
 			grounded = false;
 		}
