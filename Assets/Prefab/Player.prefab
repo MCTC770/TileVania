@@ -894,6 +894,8 @@ MonoBehaviour:
   playerBlinkingMax: 0.7
   playerBlinkingAdjust: 0.03
   playerBlinkingDuration: 1.2
+  bumpUplift: 1150
+  bumpUpliftDuration: 0.2
   maxJumps: 1
   currentMaxJumps: 1
   layer:
@@ -903,18 +905,11 @@ MonoBehaviour:
   playerCollider: {fileID: 70896447067235920}
   playerPickups: {fileID: 114442515836695266, guid: 174d881d80a791a4983fb55019932669,
     type: 2}
-  playerDying: {fileID: 0}
-  virtualCameras:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  enemyParticleSystem: {fileID: 198037029547317774, guid: e8e246ae1dd647643a908e332282e933,
+    type: 2}
+  playerDying: {fileID: 1350931095133464, guid: c42f28bf6851d404982dfeff228f18c4,
+    type: 2}
+  virtualCameras: []
   playerList:
   - {fileID: 1581171988836890}
   - {fileID: 1162708239629732}

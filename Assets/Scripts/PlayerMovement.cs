@@ -30,12 +30,15 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float playerBlinkingMax = 0.75f;
 	[SerializeField] float playerBlinkingAdjust = 0.025f;
 	[SerializeField] float playerBlinkingDuration = 3f;
+	[SerializeField] float bumpUplift = 0.1f;
+	[SerializeField] float bumpUpliftDuration = 2f;
 	[SerializeField] int maxJumps = 1;
 	[SerializeField] int currentMaxJumps;
 	[SerializeField] LayerMask layer;
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
 	[SerializeField] PlayerPickup playerPickups;
+	[SerializeField] ParticleSystem enemyParticleSystem;
 	[SerializeField] GameObject playerDying;
 	[SerializeField] GameObject[] virtualCameras;
 	[SerializeField] List<GameObject> playerList = new List<GameObject>();
@@ -58,6 +61,7 @@ public class PlayerMovement : MonoBehaviour {
 	bool gammaStateMin = false;
 	bool playerInvulnerable = false;
 	bool resetCollider = false;
+	bool enemyJumpedOn = false;
 	int jumpCounter = 0;
 	Rigidbody2D characterRigidbody;
 	GameSession gameSession;
@@ -71,7 +75,7 @@ public class PlayerMovement : MonoBehaviour {
 	RaycastHit2D checkPlayerPickupRaycastHit;
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		PlayerFeetTrigger = GetComponent<CircleCollider2D>();
 		characterRigidbody = GetComponent<Rigidbody2D>();
 		characterAnimator.SetBool("Running", false);
@@ -80,10 +84,9 @@ public class PlayerMovement : MonoBehaviour {
 		gameSession = FindObjectOfType<GameSession>();
 		currentMaxJumps = maxJumps;
 	}
-	
-	void Update ()
+
+	void Update()
 	{
-		CheckRaycastHit("topMultiplePlayer");
 		if (playerInvulnerable)
 		{
 			PlayerBlinking();
@@ -164,7 +167,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private bool CheckRaycastHit(string directionCheck)
 	{
-		Vector2 direction = new Vector2(0,0);
+		Vector2 direction = new Vector2(0, 0);
 		float baseValue = 0.38f;
 		if (directionCheck == "checkForNextPlayer")
 		{
@@ -446,7 +449,6 @@ public class PlayerMovement : MonoBehaviour {
 				}
 		}
 
-		// here is the problem
 		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false && currentMaxJumps > 1 && !enterLosePlayer)
 		{
 			spawnedPlayerPickup = true;
@@ -461,12 +463,6 @@ public class PlayerMovement : MonoBehaviour {
 				currentMaxJumps = 1;
 			}
 
-			// dirty hotfix-ish
-			/*if (playerInvulnerable)
-			{
-				currentMaxJumps += 1;
-			}*/
-
 			for (var i = playerList.Count; i >= currentMaxJumps; i--)
 			{
 				if (playerList[i-1] != playerList[currentMaxJumps-1])
@@ -480,6 +476,23 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			spawnedPlayerPickup = false;
 		}
+
+		if (enemyJumpedOn)
+		{
+			if (jumpInput == 0f)
+			{
+				GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, bumpUplift * Time.deltaTime);
+			}
+			grounded = true;
+			canJump = true;
+			jumpTime = 0;
+			Invoke("EnemyBumpUpliftOff", bumpUpliftDuration);
+		}
+	}
+
+	void EnemyBumpUpliftOff()
+	{
+		enemyJumpedOn = false;
 	}
 
 	private void ClimbLadder()
@@ -559,7 +572,10 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (collider.gameObject.layer == enemyLayer && !collider.isTrigger)
 		{
+			Instantiate(enemyParticleSystem, collider.gameObject.transform.position, Quaternion.identity);
 			Destroy(collider.gameObject);
+			enemyJumpedOn = true;
+			grounded = true;
 			enemyDefeated = true;
 		}
 	}
