@@ -7,8 +7,6 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerMovement : MonoBehaviour {
 
-	//todo: re-enable jumping while falling (not a fall after a jump), if player has more then 1 character
-
 	public bool playerDeath = false;
 	public bool grounded = false;
 
@@ -276,6 +274,10 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void LoseALive()
 	{
+		if (gameSession == null)
+		{
+			gameSession = FindObjectOfType<GameSession>();
+		}
 		gameSession.playerLives -= 1;
 		gameSession.ProcessPlayerDeath();
 		Destroy(gameObject);
