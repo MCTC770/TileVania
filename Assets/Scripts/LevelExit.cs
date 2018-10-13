@@ -69,6 +69,7 @@ public class LevelExit : MonoBehaviour {
 
 	IEnumerator LoadNextScene()
 	{
+		gameSession.currentCheckpointNumber = 0;
 		loadingNextLevel = true;
 		int sceneCount = SceneManager.sceneCountInBuildSettings - 1;
 		int currentScene = SceneManager.GetActiveScene().buildIndex + 1;

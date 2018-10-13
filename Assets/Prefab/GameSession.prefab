@@ -267,8 +267,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLives: 3
   starsCollected: 0
+  starsFromAllLevels: 0
+  currentCheckpointNumber: 0
   livesText: {fileID: 114819023373858634}
   scoreText: {fileID: 114303983249428220}
+  waitTime: 0
 --- !u!114 &114819023373858634
 MonoBehaviour:
   m_ObjectHideFlags: 1

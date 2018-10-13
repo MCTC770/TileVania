@@ -600,7 +600,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		print(collision.otherCollider);
 		if (collision.collider.gameObject.layer == playerPickupsLayer && grounded && maxJumps < 10 && !CheckRaycastHit("checkForNextPlayer"))
 		{
 			Destroy(collision.collider.gameObject);
