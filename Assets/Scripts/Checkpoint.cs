@@ -21,7 +21,16 @@ public class Checkpoint : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (gameSession == null)
+		{
+			gameSession = FindObjectOfType<GameSession>();
+		}
+
+		if (gameSession.currentCheckpointNumber > checkpointInLevel)
+		{
+			GetComponent<SpriteRenderer>().sprite = checkpointChecked;
+			GetComponent<BoxCollider2D>().enabled = false;
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)

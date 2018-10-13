@@ -271,7 +271,8 @@ MonoBehaviour:
   currentCheckpointNumber: 0
   livesText: {fileID: 114819023373858634}
   scoreText: {fileID: 114303983249428220}
-  waitTime: 0
+  checkpointCheck: {fileID: 114491947230525302, guid: bb469023176631642a90499083f4c505,
+    type: 2}
 --- !u!114 &114819023373858634
 MonoBehaviour:
   m_ObjectHideFlags: 1

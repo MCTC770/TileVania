@@ -14,7 +14,7 @@ public class GameSession : MonoBehaviour {
 
 	[SerializeField] Text livesText;
 	[SerializeField] Text scoreText;
-	[SerializeField] float waitTime = 0.5f;
+	[SerializeField] CheckpointCheck checkpointCheck;
 
 	int coinAmount = 0;
 	int totalStars;
@@ -28,7 +28,6 @@ public class GameSession : MonoBehaviour {
 		if (numberOfGameSessions > 1)
 		{
 			Destroy(gameObject);
-			Debug.Log("here");
 		}
 		else
 		{
@@ -47,7 +46,7 @@ public class GameSession : MonoBehaviour {
 
 	private void Update()
 	{
-		print("currentCheckpointNumber: " + currentCheckpointNumber + " currentCheckpoint: " + currentCheckpoint);
+		print(checkpoints);
 		UpdateUITexts();
 	}
 
@@ -85,33 +84,10 @@ public class GameSession : MonoBehaviour {
 		{
 			SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
 			Destroy(gameObject);
-			Debug.Log("there");
 		}
 		else
 		{
-			StartCoroutine(ReloadLevel(currentScene));
+			SceneManager.LoadScene(currentScene, LoadSceneMode.Single);
 		}
-	}
-
-	IEnumerator ReloadLevel(int currentScene)
-	{
-		SceneManager.LoadScene(currentScene, LoadSceneMode.Single);
-
-		yield return new WaitForSeconds(waitTime);
-
-		checkpoints = FindObjectsOfType<Checkpoint>();
-		for (var i = 0; i <= checkpoints.Length - 1; i++)
-		{
-			if (checkpoints[i].checkpointInLevel == currentCheckpointNumber)
-			{
-				currentCheckpoint = checkpoints[i];
-				print("currentCheckpoint: " + currentCheckpoint);
-			}
-		}
-
-		print("player: " + FindObjectOfType<PlayerMovement>());
-		FindObjectOfType<PlayerMovement>().transform.position = currentCheckpoint.transform.position;
-		print("player.transform.position: " + FindObjectOfType<PlayerMovement>().transform.position + " currentCheckpoint.transform.position: " + currentCheckpoint.transform.position);
-		print(currentCheckpointNumber);
 	}
 }
