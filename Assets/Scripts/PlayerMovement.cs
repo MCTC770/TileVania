@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float playerBlinkingDuration = 3f;
 	[SerializeField] float bumpUplift = 0.1f;
 	[SerializeField] float bumpUpliftDuration = 2f;
+	[SerializeField] float debugUplift = 1f;
 	[SerializeField] int maxJumps = 1;
 	[SerializeField] int currentMaxJumps;
 	[SerializeField] LayerMask layer;
@@ -547,9 +548,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void DebugControlls()
 	{
-		if(Input.GetKey("p"))
+		if(CrossPlatformInputManager.GetAxis("Debug") == 1f)
 		{
-			transform.position = new Vector2(transform.position.x, transform.position.y + 0.2f);
+			transform.position = new Vector2(transform.position.x, transform.position.y + debugUplift);
 		}
 	}
 
