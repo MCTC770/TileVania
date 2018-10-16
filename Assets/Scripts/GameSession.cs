@@ -46,7 +46,6 @@ public class GameSession : MonoBehaviour {
 
 	private void Update()
 	{
-		print(checkpoints);
 		UpdateUITexts();
 	}
 
