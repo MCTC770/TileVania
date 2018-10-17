@@ -1947,12 +1947,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDeath: 0
   grounded: 0
+  currentMaxJumps: 1
   movementSpeed: 350
   runSpeed: 550
   climbSpeed: 100
   jumpHeight: 1150
   maxJumpTime: 0.4
-  fallGravity: 60
+  fallGravity: 55
   ladderWalkSlowdown: 4
   deathAnimationUplift: 15
   deathGravity: 250
@@ -1964,11 +1965,11 @@ MonoBehaviour:
   playerBlinkingMin: 0.2
   playerBlinkingMax: 0.7
   playerBlinkingAdjust: 0.03
-  playerBlinkingDuration: 1.2
+  playerBlinkingDuration: 0.6
   bumpUplift: 1150
   bumpUpliftDuration: 0.2
+  debugUplift: 1
   maxJumps: 1
-  currentMaxJumps: 1
   layer:
     serializedVersion: 2
     m_Bits: 26112
