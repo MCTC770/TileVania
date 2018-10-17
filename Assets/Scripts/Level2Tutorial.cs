@@ -4,14 +4,39 @@ using UnityEngine;
 
 public class Level2Tutorial : MonoBehaviour {
 
+	public bool firstSegmentPassed = false;
+
 	[SerializeField] GameObject collectPlayerTutorial;
 	[SerializeField] GameObject doubleJumpTutorial;
 	[SerializeField] GameObject noPlayerTutorial;
 	[SerializeField] GameObject collectMorePlayerTutorial;
 	[SerializeField] GameObject multiJumpTutorial;
-	[SerializeField] BoxCollider2D runTutorialCollider;
 
-	bool runTutorialTriggered = false;
+	PlayerMovement playerMovement;
+
+	private void Start()
+	{
+		playerMovement = FindObjectOfType<PlayerMovement>();
+		collectPlayerTutorial.SetActive(true);
+	}
+
+	private void Update()
+	{
+		if (playerMovement.currentMaxJumps >= 2 && !firstSegmentPassed)
+		{
+			collectPlayerTutorial.SetActive(false);
+			doubleJumpTutorial.SetActive(true);
+		} else if (playerMovement.currentMaxJumps < 2 && !firstSegmentPassed)
+		{
+			collectPlayerTutorial.SetActive(true);
+			doubleJumpTutorial.SetActive(false);
+		}
+		else
+		{
+			collectPlayerTutorial.SetActive(false);
+			doubleJumpTutorial.SetActive(false);
+		}
+	}
 
 	/*void Start () {
 		walkTutorial.SetActive(true);

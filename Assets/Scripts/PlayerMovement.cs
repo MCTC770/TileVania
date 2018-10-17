@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public bool playerDeath = false;
 	public bool grounded = false;
+	public int currentMaxJumps;
 
 	[SerializeField] float movementSpeed = 1200f;
 	[SerializeField] float runSpeed = 800f;
@@ -32,7 +33,6 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float bumpUpliftDuration = 2f;
 	[SerializeField] float debugUplift = 1f;
 	[SerializeField] int maxJumps = 1;
-	[SerializeField] int currentMaxJumps;
 	[SerializeField] LayerMask layer;
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
