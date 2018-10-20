@@ -107,6 +107,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDeath: {fileID: 114507253990850204, guid: c42f28bf6851d404982dfeff228f18c4,
     type: 2}
+  enemyParticleSystem: {fileID: 198037029547317774, guid: e8e246ae1dd647643a908e332282e933,
+    type: 2}
 --- !u!212 &212097773955736782
 SpriteRenderer:
   m_ObjectHideFlags: 1

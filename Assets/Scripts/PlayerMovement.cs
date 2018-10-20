@@ -484,7 +484,7 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			if (jumpInput == 0f)
 			{
-				GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, bumpUplift * Time.deltaTime);
+				GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 1150 * Time.deltaTime);
 			}
 			grounded = true;
 			canJump = true;

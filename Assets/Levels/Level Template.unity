@@ -268,6 +268,29 @@ Prefab:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 700791356}
+    - target: {fileID: 4791223452200488, guid: 2ee0f1d2eabdf4945afe51197be40784, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -37.100887
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791223452200488, guid: 2ee0f1d2eabdf4945afe51197be40784, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -6.4684215
+      objectReference: {fileID: 0}
+    - target: {fileID: 114244889536101690, guid: 2ee0f1d2eabdf4945afe51197be40784,
+        type: 2}
+      propertyPath: playerBlinkingDuration
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114244889536101690, guid: 2ee0f1d2eabdf4945afe51197be40784,
+        type: 2}
+      propertyPath: debugUplift
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114244889536101690, guid: 2ee0f1d2eabdf4945afe51197be40784,
+        type: 2}
+      propertyPath: fallGravity
+      value: 55
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ee0f1d2eabdf4945afe51197be40784, type: 2}
   m_IsPrefabAsset: 0

@@ -1967,8 +1967,8 @@ MonoBehaviour:
   playerBlinkingAdjust: 0.03
   playerBlinkingDuration: 0.6
   bumpUplift: 1150
-  bumpUpliftDuration: 0.2
-  debugUplift: 1
+  bumpUpliftDuration: 0.25
+  debugUplift: 0.25
   maxJumps: 1
   layer:
     serializedVersion: 2

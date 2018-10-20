@@ -5,7 +5,11 @@ using UnityEngine;
 public class PlayerPickup : MonoBehaviour {
 
 	[SerializeField] PlayerDeath playerDeath;
+	[SerializeField] ParticleSystem enemyParticleSystem;
 	bool enemyDefeated = false;
+	bool jumpedOnEnemy;
+	int bumpUplift = 1150;
+	float bumpUpliftDuration = 0.25f;
 	PlayerMovement player;
 
 	// Use this for initialization
@@ -23,6 +27,17 @@ public class PlayerPickup : MonoBehaviour {
 		{
 			gameObject.layer = 18;
 		}
+
+		if (jumpedOnEnemy)
+		{
+			GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, bumpUplift * Time.deltaTime);
+			Invoke("EnemyBumpUpliftOff", bumpUpliftDuration);
+		}
+	}
+
+	void EnemyBumpUpliftOff()
+	{
+		jumpedOnEnemy = false;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collider)
@@ -30,7 +45,9 @@ public class PlayerPickup : MonoBehaviour {
 		if (collider.gameObject.layer == 13 && !collider.isTrigger)
 		{
 			Destroy(collider.gameObject);
+			Instantiate(enemyParticleSystem, collider.gameObject.transform.position, Quaternion.identity);
 			enemyDefeated = true;
+			jumpedOnEnemy = true;
 		}
 	}
 
