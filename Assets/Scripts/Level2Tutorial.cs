@@ -5,6 +5,9 @@ using UnityEngine;
 public class Level2Tutorial : MonoBehaviour {
 
 	public bool firstSegmentPassed = false;
+	public bool secondSegmentEnter = false;
+	public bool secondSegmentExit = false;
+	public bool tutorialEnd = false;
 
 	[SerializeField] GameObject collectPlayerTutorial;
 	[SerializeField] GameObject doubleJumpTutorial;
@@ -13,52 +16,84 @@ public class Level2Tutorial : MonoBehaviour {
 	[SerializeField] GameObject multiJumpTutorial;
 
 	PlayerMovement playerMovement;
+	GameSession gameSession;
+	bool hadThreePlayersOrMore = false;
 
 	private void Start()
 	{
 		playerMovement = FindObjectOfType<PlayerMovement>();
+		gameSession = FindObjectOfType<GameSession>();
 		collectPlayerTutorial.SetActive(true);
 	}
 
 	private void Update()
 	{
-		if (playerMovement.currentMaxJumps >= 2 && !firstSegmentPassed)
+		CheckTutorialsInFirstSegment();
+		CheckTutorialsInSecondSegment();
+		CheckTutorialsInThirdSegment();
+		TutorialsFinished();
+	}
+
+	private void CheckTutorialsInFirstSegment()
+	{
+		if (playerMovement.currentMaxJumps >= 2 && !firstSegmentPassed && gameSession.currentCheckpointNumber == 0)
 		{
 			collectPlayerTutorial.SetActive(false);
 			doubleJumpTutorial.SetActive(true);
-		} else if (playerMovement.currentMaxJumps < 2 && !firstSegmentPassed)
+		}
+		else if (playerMovement.currentMaxJumps < 2 && !firstSegmentPassed && gameSession.currentCheckpointNumber == 0)
 		{
 			collectPlayerTutorial.SetActive(true);
 			doubleJumpTutorial.SetActive(false);
 		}
-		else
+		else if (firstSegmentPassed || gameSession.currentCheckpointNumber > 0)
 		{
-			collectPlayerTutorial.SetActive(false);
-			doubleJumpTutorial.SetActive(false);
+			Destroy(collectPlayerTutorial);
+			Destroy(doubleJumpTutorial);
 		}
 	}
 
-	/*void Start () {
-		walkTutorial.SetActive(true);
-		jumpTutorial.SetActive(true);
-	}
-
-	private void OnTriggerEnter2D(Collider2D collision)
+	private void CheckTutorialsInSecondSegment()
 	{
-		if (collision.gameObject.layer == 11 && runTutorialTriggered == true && runTutorialCollider == null)
+		if (!secondSegmentEnter && noPlayerTutorial != null)
 		{
-			runTutorial.SetActive(false);
-			longJumpTutorial.SetActive(false);
+			noPlayerTutorial.SetActive(false);
 		}
-		else if (collision.gameObject.layer == 11 && runTutorialTriggered == false)
+		else if (secondSegmentEnter && !secondSegmentExit)
 		{
-			Destroy(runTutorialCollider);
-			walkTutorial.SetActive(false);
-			jumpTutorial.SetActive(false);
-			runTutorial.SetActive(true);
-			longJumpTutorial.SetActive(true);
+			noPlayerTutorial.SetActive(true);
+		}
+		else if (secondSegmentExit)
+		{
+			Destroy(noPlayerTutorial);
+			if (collectMorePlayerTutorial != null)
+			{
+				collectMorePlayerTutorial.SetActive(true);
+			}
+		}
+	}
 
-			runTutorialTriggered = true;
+	private void CheckTutorialsInThirdSegment()
+	{
+		if (secondSegmentExit && playerMovement.currentMaxJumps >= 3 && !tutorialEnd)
+		{
+			collectMorePlayerTutorial.SetActive(false);
+			multiJumpTutorial.SetActive(true);
+			hadThreePlayersOrMore = true;
 		}
-	}*/
+		else if (secondSegmentExit && playerMovement.currentMaxJumps < 3 && !tutorialEnd)
+		{
+			collectMorePlayerTutorial.SetActive(true);
+			multiJumpTutorial.SetActive(false);
+		}
+	}
+
+	private void TutorialsFinished()
+	{
+		if (hadThreePlayersOrMore && tutorialEnd)
+		{
+			Destroy(collectMorePlayerTutorial);
+			Destroy(multiJumpTutorial);
+		}
+	}
 }
