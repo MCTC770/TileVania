@@ -496,6 +496,7 @@ public class PlayerMovement : MonoBehaviour {
 	void EnemyBumpUpliftOff()
 	{
 		enemyJumpedOn = false;
+		grounded = false;
 	}
 
 	private void ClimbLadder()
