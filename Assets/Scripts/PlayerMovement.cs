@@ -231,13 +231,26 @@ public class PlayerMovement : MonoBehaviour {
 					localPlayerDeath = playerList[i].GetComponent<AdditionalPlayer>().additionalPlayerCollided;
 				}
 			}
-
-			if (currentMaxJumps > 1 && !playerInvulnerable)
+			
+			// NOTE: disabled to have instant death:
+			/*if (currentMaxJumps > 1 && !playerInvulnerable)
 			{
 				LoseAPlayer();
 			}
-			else if (!playerInvulnerable)
+			else*/
+			if (!playerInvulnerable)
 			{
+				// NOTE: following code only for instant death:
+				currentMaxJumps = 1;
+				for (var i = playerList.Count; i >= currentMaxJumps; i--)
+				{
+					if (i - 1 > currentMaxJumps - 1)
+					{
+						playerList[i - 2].GetComponent<CapsuleCollider2D>().enabled = false;
+						//playerList[i - 2].SetActive(false);
+					}
+				}
+				// regular death sequence:
 				Die();
 			}
 		}

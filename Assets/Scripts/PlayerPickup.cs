@@ -55,11 +55,19 @@ public class PlayerPickup : MonoBehaviour {
 	{
 		if ((collision.collider.gameObject.layer == 13 && !enemyDefeated) || collision.collider.gameObject.layer == 14)
 		{
-			Instantiate(playerDeath, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
-			Destroy(gameObject);
+			StartCoroutine(CheckEnemyStillExists(collision.collider.gameObject));
 		}
 
 		enemyDefeated = false;
 	}
 
+	IEnumerator CheckEnemyStillExists (GameObject enemy)
+	{
+		yield return new WaitForSeconds(0.1f);
+		if (enemy != null)
+		{
+			Instantiate(playerDeath, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+			Destroy(gameObject);
+		}
+	}
 }

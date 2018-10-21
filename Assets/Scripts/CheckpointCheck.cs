@@ -49,7 +49,6 @@ public class CheckpointCheck : MonoBehaviour {
 			if (checkpoints[i].checkpointInLevel == gameSession.currentCheckpointNumber)
 			{
 				currentCheckpoint = checkpoints[i];
-				print("currentCheckpoint: " + currentCheckpoint);
 			}
 		}
 

@@ -14,13 +14,10 @@ public class GameSession : MonoBehaviour {
 
 	[SerializeField] Text livesText;
 	[SerializeField] Text scoreText;
-	[SerializeField] CheckpointCheck checkpointCheck;
 
 	int coinAmount = 0;
 	int totalStars;
 	bool updateTotalStarTracker = true;
-	Checkpoint[] checkpoints;
-	Checkpoint currentCheckpoint;
 
 	private void Awake()
 	{
