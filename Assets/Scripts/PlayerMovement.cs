@@ -9,7 +9,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	public bool playerDeath = false;
 	public bool grounded = false;
+	public bool poiCameraActive = false;
 	public int currentMaxJumps;
+	public int maxJumps = 1;
 
 	[SerializeField] float movementSpeed = 1200f;
 	[SerializeField] float runSpeed = 800f;
@@ -32,7 +34,6 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] float bumpUplift = 0.1f;
 	[SerializeField] float bumpUpliftDuration = 2f;
 	[SerializeField] float debugUplift = 1f;
-	[SerializeField] int maxJumps = 1;
 	[SerializeField] LayerMask layer;
 	[SerializeField] Animator characterAnimator;
 	[SerializeField] CapsuleCollider2D playerCollider;
@@ -40,7 +41,6 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] ParticleSystem enemyParticleSystem;
 	[SerializeField] GameObject playerDying;
 	[SerializeField] BoxCollider2D poiCollider;
-	[SerializeField] GameObject[] virtualCameras;
 	[SerializeField] List<GameObject> playerList = new List<GameObject>();
 
 	float jumpInput = 0;
@@ -62,7 +62,6 @@ public class PlayerMovement : MonoBehaviour {
 	bool playerInvulnerable = false;
 	bool resetCollider = false;
 	bool enemyJumpedOn = false;
-	bool poiCameraActive = false;
 	int jumpCounter = 0;
 	Rigidbody2D characterRigidbody;
 	GameSession gameSession;
@@ -74,6 +73,7 @@ public class PlayerMovement : MonoBehaviour {
 	Collider2D localPlayerDeath;
 	CircleCollider2D PlayerFeetTrigger;
 	RaycastHit2D checkPlayerPickupRaycastHit;
+	VirtualCameraManager virtualCameras;
 
 	// Use this for initialization
 	void Start() {
@@ -84,9 +84,11 @@ public class PlayerMovement : MonoBehaviour {
 		movementFixSpeed = movementSpeed;
 		gameSession = FindObjectOfType<GameSession>();
 		currentMaxJumps = maxJumps;
+		virtualCameras = FindObjectOfType<VirtualCameraManager>();
+		print(virtualCameras);
 	}
 
-	void Update()
+	public void Update()
 	{
 		if (playerInvulnerable)
 		{
@@ -151,7 +153,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-	private void ChooseCamera()
+	/*private void ChooseCamera()
 	{
 		if (poiCameraActive)
 		{
@@ -175,7 +177,7 @@ public class PlayerMovement : MonoBehaviour {
 				}
 			}
 		}
-	}
+	}*/
 
 	private bool CheckRaycastHit(string directionCheck)
 	{
@@ -457,10 +459,9 @@ public class PlayerMovement : MonoBehaviour {
 			jumpCounter = 0;
 			noJumpWhenFalling = true;
 			maxJumps = currentMaxJumps;
-			ChooseCamera();
 			if (maxJumps >= 2)
 			{
-				for(var i = 0; i <= maxJumps; i++)
+				for (var i = 0; i <= maxJumps; i++)
 				{
 					if (i <= maxJumps - 2)
 					{
@@ -476,6 +477,7 @@ public class PlayerMovement : MonoBehaviour {
 						playerList[i - 2].SetActive(false);
 					}
 				}
+			virtualCameras.ChooseCamera();
 		}
 
 		if (jumpInput == 1f && jumpCounter > 0 && spawnedPlayerPickup == false && currentMaxJumps > 1 && !enterLosePlayer)
@@ -652,8 +654,8 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			Destroy(collision.collider.gameObject);
 			maxJumps += 1;
-			ChooseCamera();
 			currentMaxJumps = maxJumps;
+			virtualCameras.ChooseCamera();
 		}
 
 		if (collision.collider.gameObject.layer == enemyLayer && !enemyDefeated && !playerInvulnerable)
