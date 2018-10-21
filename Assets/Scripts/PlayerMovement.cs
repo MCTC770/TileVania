@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] PlayerPickup playerPickups;
 	[SerializeField] ParticleSystem enemyParticleSystem;
 	[SerializeField] GameObject playerDying;
+	[SerializeField] BoxCollider2D poiCollider;
 	[SerializeField] GameObject[] virtualCameras;
 	[SerializeField] List<GameObject> playerList = new List<GameObject>();
 
@@ -61,6 +62,7 @@ public class PlayerMovement : MonoBehaviour {
 	bool playerInvulnerable = false;
 	bool resetCollider = false;
 	bool enemyJumpedOn = false;
+	bool poiCameraActive = false;
 	int jumpCounter = 0;
 	Rigidbody2D characterRigidbody;
 	GameSession gameSession;
@@ -151,15 +153,26 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void ChooseCamera()
 	{
-		for (var i = 0; i <= (virtualCameras.Length - 1); i++)
+		if (poiCameraActive)
 		{
-			if (i == (maxJumps - 1))
-			{
-				virtualCameras[i].SetActive(true);
-			}
-			else
+			virtualCameras[10].SetActive(true);
+			for (var i = 0; i <= (virtualCameras.Length - 2); i++)
 			{
 				virtualCameras[i].SetActive(false);
+			}
+		}
+		else
+		{
+			for (var i = 0; i <= (virtualCameras.Length - 1); i++)
+			{
+				if (i == (maxJumps - 1))
+				{
+					virtualCameras[i].SetActive(true);
+				}
+				else
+				{
+					virtualCameras[i].SetActive(false);
+				}
 			}
 		}
 	}
@@ -484,7 +497,7 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			if (jumpInput == 0f)
 			{
-				GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 1150 * Time.deltaTime);
+				GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, bumpUplift * Time.deltaTime);
 			}
 			grounded = true;
 			canJump = true;
@@ -549,9 +562,17 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void DebugControlls()
 	{
-		if(CrossPlatformInputManager.GetAxis("Debug") == 1f)
+		if (CrossPlatformInputManager.GetAxis("DebugUplift") == 1f)
 		{
 			transform.position = new Vector2(transform.position.x, transform.position.y + debugUplift);
+		}
+		if (CrossPlatformInputManager.GetAxis("DebugPlayerOn") == 1f && CrossPlatformInputManager.GetButtonDown("DebugPlayer+") == true && currentMaxJumps <= 10)
+		{
+			currentMaxJumps += 1;
+		}
+		else if (CrossPlatformInputManager.GetAxis("DebugPlayerOn") == 1f && CrossPlatformInputManager.GetButtonDown("DebugPlayer-") == true && currentMaxJumps >= 1)
+		{
+			currentMaxJumps -= 1;
 		}
 	}
 
@@ -582,6 +603,11 @@ public class PlayerMovement : MonoBehaviour {
 			grounded = true;
 			enemyDefeated = true;
 		}
+
+		if (collider.GetComponent<BoxCollider2D>() == poiCollider)
+		{
+			poiCameraActive = true;
+		}
 	}
 
 	private void OnTriggerExit2D(Collider2D collider)
@@ -599,6 +625,11 @@ public class PlayerMovement : MonoBehaviour {
 		if (collider.gameObject.layer == hazardLayer)
 		{
 			grounded = false;
+		}
+
+		if (collider.GetComponent<BoxCollider2D>() == poiCollider)
+		{
+			poiCameraActive = false;
 		}
 	}
 
