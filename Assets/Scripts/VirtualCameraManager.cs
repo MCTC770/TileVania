@@ -14,13 +14,21 @@ public class VirtualCameraManager : MonoBehaviour {
 
 	public void ChooseCamera()
 	{
-		if (player.poiCameraActive)
+		if (player.poi1CameraActive)
 		{
-			virtualCameras[10].SetActive(true);
-			for (var i = 0; i <= (virtualCameras.Length - 2); i++)
+			for (var i = 0; i <= (virtualCameras.Length - 1); i++)
 			{
 				virtualCameras[i].SetActive(false);
 			}
+			virtualCameras[10].SetActive(true);
+		}
+		else if (player.poi2CameraActive)
+		{
+			for (var i = 0; i <= (virtualCameras.Length - 1); i++)
+			{
+				virtualCameras[i].SetActive(false);
+			}
+			virtualCameras[11].SetActive(true);
 		}
 		else
 		{

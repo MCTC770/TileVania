@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	public bool playerDeath = false;
 	public bool grounded = false;
-	public bool poiCameraActive = false;
+	public bool poi1CameraActive = false;
+	public bool poi2CameraActive = false;
 	public int currentMaxJumps;
 	public int maxJumps = 1;
 
@@ -40,7 +41,8 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] PlayerPickup playerPickups;
 	[SerializeField] ParticleSystem enemyParticleSystem;
 	[SerializeField] GameObject playerDying;
-	[SerializeField] BoxCollider2D poiCollider;
+	[SerializeField] BoxCollider2D poi1Collider;
+	[SerializeField] BoxCollider2D poi2Collider;
 	[SerializeField] List<GameObject> playerList = new List<GameObject>();
 
 	float jumpInput = 0;
@@ -593,9 +595,13 @@ public class PlayerMovement : MonoBehaviour {
 			enemyDefeated = true;
 		}
 
-		if (collider.GetComponent<BoxCollider2D>() == poiCollider)
+		if (collider.GetComponent<BoxCollider2D>() == poi1Collider)
 		{
-			poiCameraActive = true;
+			poi1CameraActive = true;
+		}
+		else if (collider.GetComponent<BoxCollider2D>() == poi2Collider)
+		{
+			poi2CameraActive = true;
 		}
 	}
 
@@ -616,9 +622,13 @@ public class PlayerMovement : MonoBehaviour {
 			grounded = false;
 		}
 
-		if (collider.GetComponent<BoxCollider2D>() == poiCollider)
+		if (collider.GetComponent<BoxCollider2D>() == poi1Collider)
 		{
-			poiCameraActive = false;
+			poi1CameraActive = false;
+		}
+		else if (collider.GetComponent<BoxCollider2D>() == poi2Collider)
+		{
+			poi2CameraActive = false;
 		}
 	}
 

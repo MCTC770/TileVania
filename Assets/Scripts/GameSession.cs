@@ -78,8 +78,10 @@ public class GameSession : MonoBehaviour {
 		int currentScene = SceneManager.GetActiveScene().buildIndex;
 		if (playerLives < 1)
 		{
-			SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
-			Destroy(gameObject);
+			SceneManager.LoadScene(currentScene, LoadSceneMode.Single);
+			currentCheckpointNumber = 0;
+			playerLives = 3;
+			coinAmount = 0;
 		}
 		else
 		{
