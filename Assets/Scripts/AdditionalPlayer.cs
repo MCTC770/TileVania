@@ -5,6 +5,8 @@ using UnityEngine;
 public class AdditionalPlayer : MonoBehaviour {
 
 	public Collider2D additionalPlayerCollided;
+	public Collider2D additionalPlayerCollidedWith;
+	public Collider2D additionalPlayerTriggeredWith;
 
 	// Use this for initialization
 	void Start () {
@@ -19,5 +21,26 @@ public class AdditionalPlayer : MonoBehaviour {
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		additionalPlayerCollided = collision.otherCollider;
+		additionalPlayerCollidedWith = collision.collider;
+		print("player: " + additionalPlayerCollided + " collided with: " + additionalPlayerCollidedWith);
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		additionalPlayerTriggeredWith = collision;
+
+		if (collision.name == "Ladders")
+		{
+			GetComponent<CapsuleCollider2D>().enabled = false;
+		}
+		print("player: " + additionalPlayerCollided + " triggered with: " + additionalPlayerTriggeredWith);
+	}
+
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		if (collision.name == "Ladders")
+		{
+			GetComponent<CapsuleCollider2D>().enabled = true;
+		}
 	}
 }

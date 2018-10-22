@@ -153,32 +153,6 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-	/*private void ChooseCamera()
-	{
-		if (poiCameraActive)
-		{
-			virtualCameras[10].SetActive(true);
-			for (var i = 0; i <= (virtualCameras.Length - 2); i++)
-			{
-				virtualCameras[i].SetActive(false);
-			}
-		}
-		else
-		{
-			for (var i = 0; i <= (virtualCameras.Length - 1); i++)
-			{
-				if (i == (maxJumps - 1))
-				{
-					virtualCameras[i].SetActive(true);
-				}
-				else
-				{
-					virtualCameras[i].SetActive(false);
-				}
-			}
-		}
-	}*/
-
 	private bool CheckRaycastHit(string directionCheck)
 	{
 		Vector2 direction = new Vector2(0, 0);
@@ -205,7 +179,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		Debug.DrawRay(position, direction, Color.green);
 
-		if (Physics2D.Raycast(position, direction, distance, layer))
+		if (Physics2D.Raycast(position, direction, distance, 1 << LayerMask.NameToLayer("Foreground")))
 		{
 			return true;
 		}
