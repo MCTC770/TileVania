@@ -87,7 +87,6 @@ public class PlayerMovement : MonoBehaviour {
 		gameSession = FindObjectOfType<GameSession>();
 		currentMaxJumps = maxJumps;
 		virtualCameras = FindObjectOfType<VirtualCameraManager>();
-		print(virtualCameras);
 	}
 
 	public void Update()

@@ -17,11 +17,22 @@ public class StarCounter : MonoBehaviour {
 	private void Update()
 	{
 		firstStar = GameObject.Find("Star1");
-		secondStar = GameObject.Find("Star2");
-		thirdStar = GameObject.Find("Star3");
+		if (firstStar != null && firstStar.transform.position != GameObject.Find("Star 1 Position").transform.position)
+		{
+			firstStar.transform.position = GameObject.Find("Star 1 Position").transform.position;
+		}
 
-		print("starsfound: " + firstStar + " " + secondStar + " " + thirdStar);
-		print("firststar: " + (firstStar == null));
+		secondStar = GameObject.Find("Star2");
+		if (secondStar != null && secondStar.transform.position != GameObject.Find("Star 2 Position").transform.position)
+		{
+			secondStar.transform.position = GameObject.Find("Star 2 Position").transform.position;
+		}
+
+		thirdStar = GameObject.Find("Star3");
+		if (thirdStar != null && thirdStar.transform.position != GameObject.Find("Star 3 Position").transform.position)
+		{
+			thirdStar.transform.position = GameObject.Find("Star 3 Position").transform.position;
+		}
 
 		if (firstStar == null)
 		{

@@ -19,7 +19,7 @@ public class GameSession : MonoBehaviour {
 	int coinAmount = 0;
 	int totalStars;
 	bool updateTotalStarTracker = true;
-	bool sceneRestarted = true;
+	bool sceneRestarted = false;
 	ScenePersist scenePersistAvailable;
 
 	private void Awake()
@@ -47,13 +47,14 @@ public class GameSession : MonoBehaviour {
 
 	private void Update()
 	{
-		print(scenePersistAvailable);
-		if (scenePersistAvailable == null)
+		UpdateUITexts();
+
+		if (scenePersistAvailable == null && !sceneRestarted)
 		{
 			Instantiate(scenePersist, transform.position, Quaternion.identity);
 			scenePersistAvailable = FindObjectOfType<ScenePersist>();
+			sceneRestarted = true;
 		}
-		UpdateUITexts();
 	}
 
 	private void UpdateUITexts()
@@ -89,6 +90,7 @@ public class GameSession : MonoBehaviour {
 		if (playerLives < 1)
 		{
 			SceneManager.LoadScene(currentScene, LoadSceneMode.Single);
+			sceneRestarted = false;
 			currentCheckpointNumber = 0;
 			playerLives = 3;
 			coinAmount = 0;
@@ -97,6 +99,7 @@ public class GameSession : MonoBehaviour {
 		}
 		else
 		{
+			sceneRestarted = false;
 			SceneManager.LoadScene(currentScene, LoadSceneMode.Single);
 		}
 	}

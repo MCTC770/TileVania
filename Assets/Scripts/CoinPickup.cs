@@ -17,6 +17,14 @@ public class CoinPickup : MonoBehaviour {
 		addCoins = FindObjectOfType<GameSession>();
 	}
 
+	private void Update()
+	{
+		if (addCoins == null)
+		{
+			addCoins = FindObjectOfType<GameSession>();
+		}
+	}
+
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
 		if (collider.gameObject.layer == playerLayer && !collider.isTrigger)

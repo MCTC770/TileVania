@@ -22,7 +22,6 @@ public class AdditionalPlayer : MonoBehaviour {
 	{
 		additionalPlayerCollided = collision.otherCollider;
 		additionalPlayerCollidedWith = collision.collider;
-		print("player: " + additionalPlayerCollided + " collided with: " + additionalPlayerCollidedWith);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -33,7 +32,6 @@ public class AdditionalPlayer : MonoBehaviour {
 		{
 			GetComponent<CapsuleCollider2D>().enabled = false;
 		}
-		print("player: " + additionalPlayerCollided + " triggered with: " + additionalPlayerTriggeredWith);
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)

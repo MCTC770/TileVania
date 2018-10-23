@@ -13,6 +13,6 @@ public class Menu : MonoBehaviour {
 
 	public void LoadMainMenu()
 	{
-		SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+		SceneManager.LoadScene("Level 1", LoadSceneMode.Single);
 	}
 }
