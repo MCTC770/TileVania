@@ -168,9 +168,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstStarUI: {fileID: 114082736478183094}
+  firstStar: {fileID: 0}
   secondStarUI: {fileID: 114617608001105700}
+  secondStar: {fileID: 0}
   thirdStarUI: {fileID: 114820904754688674}
+  thirdStar: {fileID: 0}
   fullStar: {fileID: 114548054357377106, guid: a297219fa6bcdf44486ed50f4a07f7f6, type: 2}
+  emptyStar: {fileID: 114548054357377106, guid: 42d8b076d01b2eb4fa087a897712f8d7,
+    type: 2}
 --- !u!114 &114740472565051178
 MonoBehaviour:
   m_ObjectHideFlags: 1

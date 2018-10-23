@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class ScenePersist : MonoBehaviour {
 
+	public bool gameOver = false;
+
+	[SerializeField] ScenePersist scenePersist;
+
 	static int sceneIndexofTheLastScene = 0;
 	private int sceneIndexAtStart;
 
@@ -71,6 +75,12 @@ public class ScenePersist : MonoBehaviour {
 		{
 			Destroy(gameObject);
 			Debug.Log("ScenePersist has been destoyed due to SceneChange");
+		}
+		else if (gameOver)
+		{
+			Instantiate(scenePersist, transform.position, Quaternion.identity);
+			Destroy(gameObject);
+			Debug.Log("ScenePersist has been destoyed due to GameOver");
 		}
 		else
 		{

@@ -271,7 +271,7 @@ MonoBehaviour:
   currentCheckpointNumber: 0
   livesText: {fileID: 114819023373858634}
   scoreText: {fileID: 114303983249428220}
-  checkpointCheck: {fileID: 114491947230525302, guid: bb469023176631642a90499083f4c505,
+  scenePersist: {fileID: 114508001479607102, guid: 7fbef1c9ffd8d73429ec299752633c6d,
     type: 2}
 --- !u!114 &114819023373858634
 MonoBehaviour:

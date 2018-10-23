@@ -14,10 +14,13 @@ public class GameSession : MonoBehaviour {
 
 	[SerializeField] Text livesText;
 	[SerializeField] Text scoreText;
+	[SerializeField] ScenePersist scenePersist;
 
 	int coinAmount = 0;
 	int totalStars;
 	bool updateTotalStarTracker = true;
+	bool sceneRestarted = true;
+	ScenePersist scenePersistAvailable;
 
 	private void Awake()
 	{
@@ -33,6 +36,7 @@ public class GameSession : MonoBehaviour {
 	}
 
 	void Start () {
+		scenePersistAvailable = FindObjectOfType<ScenePersist>();
 		starsTracking = new int[SceneManager.sceneCountInBuildSettings][];
 		for (var i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
 		{
@@ -43,6 +47,12 @@ public class GameSession : MonoBehaviour {
 
 	private void Update()
 	{
+		print(scenePersistAvailable);
+		if (scenePersistAvailable == null)
+		{
+			Instantiate(scenePersist, transform.position, Quaternion.identity);
+			scenePersistAvailable = FindObjectOfType<ScenePersist>();
+		}
 		UpdateUITexts();
 	}
 
@@ -82,6 +92,8 @@ public class GameSession : MonoBehaviour {
 			currentCheckpointNumber = 0;
 			playerLives = 3;
 			coinAmount = 0;
+			FindObjectOfType<ScenePersist>().gameOver = true;
+			Destroy(gameObject);
 		}
 		else
 		{
