@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364564965265226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.83, y: 14.07, z: 0}
+  m_LocalPosition: {x: 27, y: 14, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,6 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a4d72f17d58b74193a10057e5c7cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadingNextLevel: 0
+  starsInLevel: 
   delayUntilNextSceneLoad: 0.1
   LevelExitSloMoFactor: 0.2
 --- !u!212 &212825157717923474
@@ -113,7 +115,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1329468137
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 568579244bea7d044a0ded08c166d338, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

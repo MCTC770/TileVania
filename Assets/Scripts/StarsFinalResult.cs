@@ -29,8 +29,6 @@ public class StarsFinalResult : MonoBehaviour {
 	void Update () {
 		gameSession = FindObjectOfType<GameSession>();
 
-		print("gs: " + gameSession + " " + gameSession.starsTracking[0][0]);
-
 		if (gameSession.starsTracking[0][0] == 1)
 		{
 			star11.GetComponent<Image>().sprite = fullStar.GetComponent<Image>().sprite;

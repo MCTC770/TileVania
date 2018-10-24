@@ -8,14 +8,19 @@ public class AdditionalPlayer : MonoBehaviour {
 	public Collider2D additionalPlayerCollidedWith;
 	public Collider2D additionalPlayerTriggeredWith;
 
+	PlayerMovement player;
+
 	// Use this for initialization
 	void Start () {
-		
+		player = FindObjectOfType<PlayerMovement>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (!GetComponent<CapsuleCollider2D>().enabled && player.grounded)
+		{
+			GetComponent<CapsuleCollider2D>().enabled = true;
+		}
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

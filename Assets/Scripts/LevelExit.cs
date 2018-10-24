@@ -76,8 +76,13 @@ public class LevelExit : MonoBehaviour {
 
 		if (currentScene > sceneCount)
 		{
-			currentScene = sceneCount;
-		}
+			currentScene = 0;
+			gameSession.playerLives = 3;
+			gameSession.starsCollected = 0;
+			gameSession.starsTracking = null;
+			gameSession.starsFromAllLevels = 0;
+			gameSession.currentCheckpointNumber = 0;
+}
 
 		Time.timeScale = LevelExitSloMoFactor;
 

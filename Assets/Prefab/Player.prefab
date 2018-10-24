@@ -637,7 +637,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1763779761074678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22, y: -4.47, z: 0}
+  m_LocalPosition: {x: -22, y: -4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4021676634546260}
@@ -1822,6 +1822,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   additionalPlayerCollided: {fileID: 0}
+  additionalPlayerCollidedWith: {fileID: 0}
+  additionalPlayerTriggeredWith: {fileID: 0}
 --- !u!114 &114178616330402800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1906,6 +1908,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   additionalPlayerCollided: {fileID: 0}
+  additionalPlayerCollidedWith: {fileID: 0}
+  additionalPlayerTriggeredWith: {fileID: 0}
 --- !u!114 &114286284486914354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1947,7 +1951,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDeath: 0
   grounded: 0
+  poi1CameraActive: 0
+  poi2CameraActive: 0
   currentMaxJumps: 1
+  maxJumps: 1
   movementSpeed: 350
   runSpeed: 550
   climbSpeed: 100
@@ -1969,7 +1976,6 @@ MonoBehaviour:
   bumpUplift: 1150
   bumpUpliftDuration: 0.25
   debugUplift: 0.25
-  maxJumps: 1
   layer:
     serializedVersion: 2
     m_Bits: 26112
@@ -1981,17 +1987,8 @@ MonoBehaviour:
     type: 2}
   playerDying: {fileID: 1350931095133464, guid: c42f28bf6851d404982dfeff228f18c4,
     type: 2}
-  virtualCameras:
-  - {fileID: 1004810851653266}
-  - {fileID: 1602046182370688}
-  - {fileID: 1890574074200630}
-  - {fileID: 1806679457798626}
-  - {fileID: 1789238314274580}
-  - {fileID: 1441710905162654}
-  - {fileID: 1765401637133870}
-  - {fileID: 1967209348705112}
-  - {fileID: 1202880636732156}
-  - {fileID: 1780266530987672}
+  poi1Collider: {fileID: 0}
+  poi2Collider: {fileID: 0}
   playerList:
   - {fileID: 1581171988836890}
   - {fileID: 1162708239629732}
@@ -2027,6 +2024,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   additionalPlayerCollided: {fileID: 0}
+  additionalPlayerCollidedWith: {fileID: 0}
+  additionalPlayerTriggeredWith: {fileID: 0}
 --- !u!114 &114343955567132314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2039,6 +2038,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   additionalPlayerCollided: {fileID: 0}
+  additionalPlayerCollidedWith: {fileID: 0}
+  additionalPlayerTriggeredWith: {fileID: 0}
 --- !u!114 &114363789634695592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2051,6 +2052,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   additionalPlayerCollided: {fileID: 0}
+  additionalPlayerCollidedWith: {fileID: 0}
+  additionalPlayerTriggeredWith: {fileID: 0}
 --- !u!114 &114375950787257290
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2115,6 +2118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   additionalPlayerCollided: {fileID: 0}
+  additionalPlayerCollidedWith: {fileID: 0}
+  additionalPlayerTriggeredWith: {fileID: 0}
 --- !u!114 &114416377916740024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2144,6 +2149,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   additionalPlayerCollided: {fileID: 0}
+  additionalPlayerCollidedWith: {fileID: 0}
+  additionalPlayerTriggeredWith: {fileID: 0}
 --- !u!114 &114443506743063262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2205,6 +2212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   additionalPlayerCollided: {fileID: 0}
+  additionalPlayerCollidedWith: {fileID: 0}
+  additionalPlayerTriggeredWith: {fileID: 0}
 --- !u!114 &114532844977726486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2523,6 +2532,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   additionalPlayerCollided: {fileID: 0}
+  additionalPlayerCollidedWith: {fileID: 0}
+  additionalPlayerTriggeredWith: {fileID: 0}
 --- !u!114 &114898402129387018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2560,6 +2571,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   additionalPlayerCollided: {fileID: 0}
+  additionalPlayerCollidedWith: {fileID: 0}
+  additionalPlayerTriggeredWith: {fileID: 0}
 --- !u!114 &114907530998007864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2712,6 +2725,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   additionalPlayerCollided: {fileID: 0}
+  additionalPlayerCollidedWith: {fileID: 0}
+  additionalPlayerTriggeredWith: {fileID: 0}
 --- !u!114 &114993051254369854
 MonoBehaviour:
   m_ObjectHideFlags: 1
